@@ -4,6 +4,7 @@
 	<head>
 		<!-- Basic Page Info -->
 		<meta charset="utf-8" />
+		  <meta name="csrf-token" content="{{ csrf_token() }}">
 		<title>@yield('title') </title>
 
 		<!-- Site favicon -->
@@ -36,19 +37,28 @@
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
 			rel="stylesheet"
 		/>
+		......
+		...
 		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="/back/vendors/styles/core.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+   <link rel="stylesheet" type="text/css" href="/back/vendors/styles/core.css" />
+   {!! ToastMagic::styles() !!}
+ </head>
+
+
 		<link
 			rel="stylesheet"
 			type="text/css"
 			href="/back/vendors/styles/icon-font.min.css"
 		/>
 		<link rel="stylesheet" type="text/css" href="/back/vendors/styles/style.css" />
-
+	 @kropifyStyles 
 	    @stack('styles')
 	
 	</head>
 	<body>
+		 @livewireStyles
 		{{-- <div class="pre-loader">
 			<div class="pre-loader-box">
 				<div class="loader-logo">
@@ -219,43 +229,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="user-info-dropdown">
-					<div class="dropdown">
-						<a
-							class="dropdown-toggle"
-							href="#"
-							role="button"
-							data-toggle="dropdown"
-						>
-							<span class="user-icon">
-								<img src="/back/vendors/images/photo1.jpg" alt="" />
-							</span>
-							<span class="user-name">Ross C. Lopez</span>
-						</a>
-						<div
-							class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
-						>
-							<a class="dropdown-item" href="profile.html"
-								><i class="dw dw-user1"></i> Profile</a
-							>
-							<a class="dropdown-item" href="profile.html"
-								><i class="dw dw-settings2"></i> Setting</a
-							>
-							<a class="dropdown-item" href="faq.html"
-								><i class="dw dw-help"></i> Help</a
-							>
-							<a class="dropdown-item" href="{{ route('admin.logout') }}"
-							onclick="event.preventDefault();
-							document.getElementById('logout-form').submit();">
-								><i class="dw dw-logout"></i> Log Out</a
-							>
-							<form action="{{ route('admin.logout') }}" method="POST" id="logout-form">
-								@csrf
-
-							</form>
-						</div>
-					</div>
-				</div>
+				<livewire:admin.top-user-info />
 				<div class="github-link">
 					<a href="https://github.com/dropways/deskapp" target="_blank"
 						><img src="/back/vendors/images/github.svg" alt=""
@@ -451,215 +425,79 @@
 			<div class="menu-block customscroll">
 				<div class="sidebar-menu">
 					<ul id="accordion-menu">
-						<li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-house"></span
+					
+						<li>
+							<a href="{{ route('admin.dashboard') }}" class="dropdown-toggle no-arrow">
+								<span class="micon fa fa-home"></span
 								><span class="mtext">Home</span>
 							</a>
-							<ul class="submenu">
-								<li><a href="index.html">Dashboard style 1</a></li>
-								<li><a href="index2.html">Dashboard style 2</a></li>
-								<li><a href="index3.html">Dashboard style 3</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-textarea-resize"></span
-								><span class="mtext">Forms</span>
-							</a>
-							<ul class="submenu">
-								<li><a href="form-basic.html">Form Basic</a></li>
-								<li>
-									<a href="advanced-components.html">Advanced Components</a>
-								</li>
-								<li><a href="form-wizard.html">Form Wizard</a></li>
-								<li><a href="html5-editor.html">HTML5 Editor</a></li>
-								<li><a href="form-pickers.html">Form Pickers</a></li>
-								<li><a href="image-cropper.html">Image Cropper</a></li>
-								<li><a href="image-dropzone.html">Image Dropzone</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-table"></span
-								><span class="mtext">Tables</span>
-							</a>
-							<ul class="submenu">
-								<li><a href="basic-table.html">Basic Tables</a></li>
-								<li><a href="datatable.html">DataTables</a></li>
-							</ul>
 						</li>
 						<li>
-							<a href="calendar.html" class="dropdown-toggle no-arrow">
-								<span class="micon bi bi-calendar4-week"></span
-								><span class="mtext">Calendar</span>
+							<a href="{{ route('admin.dashboard') }}" class="dropdown-toggle no-arrow">
+								<span class="micon fa fa-th-list"></span
+								><span class="mtext">Categories</span>
 							</a>
 						</li>
 						<li class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-archive"></span
-								><span class="mtext"> UI Elements </span>
+								<span class="micon fa fa-newspaper-o"></span
+								><span class="mtext"> Posts </span>
 							</a>
 							<ul class="submenu">
-								<li><a href="ui-buttons.html">Buttons</a></li>
-								<li><a href="ui-cards.html">Cards</a></li>
-								<li><a href="ui-cards-hover.html">Cards Hover</a></li>
-								<li><a href="ui-modals.html">Modals</a></li>
-								<li><a href="ui-tabs.html">Tabs</a></li>
-								<li>
-									<a href="ui-tooltip-popover.html">Tooltip &amp; Popover</a>
-								</li>
-								<li><a href="ui-sweet-alert.html">Sweet Alert</a></li>
-								<li><a href="ui-notification.html">Notification</a></li>
-								<li><a href="ui-timeline.html">Timeline</a></li>
-								<li><a href="ui-progressbar.html">Progressbar</a></li>
-								<li><a href="ui-typography.html">Typography</a></li>
-								<li><a href="ui-list-group.html">List group</a></li>
-								<li><a href="ui-range-slider.html">Range slider</a></li>
-								<li><a href="ui-carousel.html">Carousel</a></li>
+								<li><a href="">New</a></li>
+								<li><a href="">Posts</a></li>
+								
 							</ul>
 						</li>
 						<li class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-command"></span
-								><span class="mtext">Icons</span>
+								<span class="micon fa fa-shopping-bag"></span
+								><span class="mtext">Shop</span>
 							</a>
 							<ul class="submenu">
-								<li><a href="bootstrap-icon.html">Bootstrap Icons</a></li>
-								<li><a href="font-awesome.html">FontAwesome Icons</a></li>
-								<li><a href="foundation.html">Foundation Icons</a></li>
-								<li><a href="ionicons.html">Ionicons Icons</a></li>
-								<li><a href="themify.html">Themify Icons</a></li>
-								<li><a href="custom-icon.html">Custom Icons</a></li>
+								<li><a href="bootstrap-icon.html">New Products</a></li>
+								<li><a href="font-awesome.html">All Products</a></li>
+							
 							</ul>
 						</li>
-						<li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-pie-chart"></span
-								><span class="mtext">Charts</span>
-							</a>
-							<ul class="submenu">
-								<li><a href="highchart.html">Highchart</a></li>
-								<li><a href="knob-chart.html">jQuery Knob</a></li>
-								<li><a href="jvectormap.html">jvectormap</a></li>
-								<li><a href="apexcharts.html">Apexcharts</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-file-earmark-text"></span
-								><span class="mtext">Additional Pages</span>
-							</a>
-							<ul class="submenu">
-								<li><a href="video-player.html">Video Player</a></li>
-								<li><a href="login.html">Login</a></li>
-								<li><a href="forgot-password.html">Forgot Password</a></li>
-								<li><a href="reset-password.html">Reset Password</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-bug"></span
-								><span class="mtext">Error Pages</span>
-							</a>
-							<ul class="submenu">
-								<li><a href="400.html">400</a></li>
-								<li><a href="403.html">403</a></li>
-								<li><a href="404.html">404</a></li>
-								<li><a href="500.html">500</a></li>
-								<li><a href="503.html">503</a></li>
-							</ul>
-						</li>
-
-						<li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-back"></span
-								><span class="mtext">Extra Pages</span>
-							</a>
-							<ul class="submenu">
-								<li><a href="blank.html">Blank</a></li>
-								<li><a href="contact-directory.html">Contact Directory</a></li>
-								<li><a href="blog.html">Blog</a></li>
-								<li><a href="blog-detail.html">Blog Detail</a></li>
-								<li><a href="product.html">Product</a></li>
-								<li><a href="product-detail.html">Product Detail</a></li>
-								<li><a href="faq.html">FAQ</a></li>
-								<li><a href="profile.html">Profile</a></li>
-								<li><a href="gallery.html">Gallery</a></li>
-								<li><a href="pricing-table.html">Pricing Tables</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-hdd-stack"></span
-								><span class="mtext">Multi Level Menu</span>
-							</a>
-							<ul class="submenu">
-								<li><a href="javascript:;">Level 1</a></li>
-								<li><a href="javascript:;">Level 1</a></li>
-								<li><a href="javascript:;">Level 1</a></li>
-								<li class="dropdown">
-									<a href="javascript:;" class="dropdown-toggle">
-										<span class="micon fa fa-plug"></span
-										><span class="mtext">Level 2</span>
-									</a>
-									<ul class="submenu child">
-										<li><a href="javascript:;">Level 2</a></li>
-										<li><a href="javascript:;">Level 2</a></li>
-									</ul>
-								</li>
-								<li><a href="javascript:;">Level 1</a></li>
-								<li><a href="javascript:;">Level 1</a></li>
-								<li><a href="javascript:;">Level 1</a></li>
-							</ul>
-						</li>
-						<li>
+					
+<li>
 							<a href="sitemap.html" class="dropdown-toggle no-arrow">
-								<span class="micon bi bi-diagram-3"></span
-								><span class="mtext">Sitemap</span>
-							</a>
-						</li>
-						<li>
-							<a href="chat.html" class="dropdown-toggle no-arrow">
-								<span class="micon bi bi-chat-right-dots"></span
-								><span class="mtext">Chat</span>
-							</a>
-						</li>
-						<li>
-							<a href="invoice.html" class="dropdown-toggle no-arrow">
 								<span class="micon bi bi-receipt-cutoff"></span
 								><span class="mtext">Invoice</span>
 							</a>
 						</li>
+					
 						<li>
 							<div class="dropdown-divider"></div>
 						</li>
 						<li>
-							<div class="sidebar-small-cap">Extra</div>
+							<div class="sidebar-small-cap">Settings</div>
 						</li>
-						<li>
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-file-pdf"></span
-								><span class="mtext">Documentation</span>
-							</a>
-							<ul class="submenu">
-								<li><a href="introduction.html">Introduction</a></li>
-								<li><a href="getting-started.html">Getting Started</a></li>
-								<li><a href="color-settings.html">Color Settings</a></li>
-								<li>
-									<a href="third-party-plugins.html">Third Party Plugins</a>
-								</li>
-							</ul>
-						</li>
+					
 						<li>
 							<a
-								href="https://dropways.github.io/deskapp-free-single-page-website-template/"
+								href="{{ route('admin.profile') }}"
 								target="_blank"
 								class="dropdown-toggle no-arrow"
 							>
-								<span class="micon bi bi-layout-text-window-reverse"></span>
+								<span class="micon fa fa-user-circle"></span>
 								<span class="mtext"
-									>Landing Page
+									>Profile
+									<img src="/back/vendors/images/coming-soon.png" alt="" width="25"
+								/></span>
+							</a>
+						</li>
+					
+						<li>
+							<a
+								href=""
+								target="_blank"
+								class="dropdown-toggle no-arrow"
+							>
+								<span class="micon fa fa-cogs"></span>
+								<span class="mtext"
+									>General
 									<img src="/back/vendors/images/coming-soon.png" alt="" width="25"
 								/></span>
 							</a>
@@ -674,93 +512,32 @@
 			<div class="pd-ltr-20 xs-pd-20-10">
 
 				@yield('content')
-				<div class="footer-wrap pd-20 mb-20 card-box">
-					DeskApp - Bootstrap 4 Admin Template By
-					<a href="https://github.com/dropways" target="_blank"
-						>Ankit Hingarajiya</a
-					>
-				</div>
+			
 			</div>
 		</div>
-		<!-- welcome modal start -->
-		<div class="welcome-modal">
-			<button class="welcome-modal-close">
-				<i class="bi bi-x-lg"></i>
-			</button>
-			<iframe
-				class="w-100 border-0"
-				src="https://embed.lottiefiles.com/animation/31548"
-			></iframe>
-			<div class="text-center">
-				<h3 class="h5 weight-500 text-center mb-2">
-					Open source
-					<span role="img" aria-label="gratitude">❤️</span>
-				</h3>
-				<div class="pb-2">
-					<a
-						class="github-button"
-						href="https://github.com/dropways/deskapp"
-						data-color-scheme="no-preference: dark; light: light; dark: light;"
-						data-icon="octicon-star"
-						data-size="large"
-						data-show-count="true"
-						aria-label="Star dropways/deskapp dashboard on GitHub"
-						>Star</a
-					>
-					<a
-						class="github-button"
-						href="https://github.com/dropways/deskapp/fork"
-						data-color-scheme="no-preference: dark; light: light; dark: light;"
-						data-icon="octicon-repo-forked"
-						data-size="large"
-						data-show-count="true"
-						aria-label="Fork dropways/deskapp dashboard on GitHub"
-						>Fork</a
-					>
-				</div>
-			</div>
-			<div class="text-center mb-1">
-				<div>
-					<a
-						href="https://github.com/dropways/deskapp"
-						target="_blank"
-						class="btn btn-light btn-block btn-sm"
-					>
-						<span class="text-danger weight-600">STAR US</span>
-						<span class="weight-600">ON GITHUB</span>
-						<i class="fa fa-github"></i>
-					</a>
-				</div>
-				<script
-					async
-					defer="defer"
-					src="https://buttons.github.io/buttons.js"
-				></script>
-			</div>
-			<a
-				href="https://github.com/dropways/deskapp"
-				target="_blank"
-				class="btn btn-success btn-sm mb-0 mb-md-3 w-100"
-			>
-				DOWNLOAD
-				<i class="fa fa-download"></i>
-			</a>
-			<p class="font-14 text-center mb-1 d-none d-md-block">
-				Available in the following technologies:
-			</p>
-			<div class="d-none d-md-flex justify-content-center h1 mb-0 text-danger">
-				<i class="fa fa-html5"></i>
-			</div>
-		</div>
-		<button class="welcome-modal-btn">
-			<i class="fa fa-download"></i> Download
-		</button>
-		<!-- welcome modal end -->
+	
 		<!-- js -->
 		<script src="/back/vendors/scripts/core.js"></script>
 		<script src="/back/vendors/scripts/script.min.js"></script>
 		<script src="/back/vendors/scripts/process.js"></script>
 		<script src="/back/vendors/scripts/layout-settings.js"></script>
+		 <script src="https://cdn.jsdelivr.net/gh/sawastacks/kropify-laravel@3.0.0/src/resources/assets/js/kropify.min.js"></script>
+ 
+		     @livewireScripts
+         <script>
+			window.addEventListener("showToastr", function (event) {
+				$().notifa({
+					vers:2,
+					cssClass:event.detail[0].type,
+
+					html:event.detail[0].message
+					delay:2500
+				})
+			})
+		 </script>
+
 		@stack('scripts')
+             @kropifyScripts
+		{!! ToastMagic::scripts() !!}
 	</body>
 </html>

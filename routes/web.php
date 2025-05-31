@@ -42,6 +42,8 @@ Route::post('/reset-password', 'resetPasswordHandler')->name('reset.password.han
         Route::controller(AdminController::class)->group(function () {
             Route::get('/dashboard','adminDashboard')->name('dashboard');
               Route::post('/logout','logoutHandler')->name('logout');
+              Route::get('/profile','profileView')->name('profile');
+              Route::post('/update-profile-picture','updateProfilePicture')->name('update.profile.picture');
         });
     });
 });

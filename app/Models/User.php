@@ -56,4 +56,8 @@ class User extends Authenticatable
             'type'=>UserType::class
         ];
     }
+    public function getPictureAttribute($value)
+    {
+        return $value ? asset('/images/users/'.$value) : 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
+    }
 }
