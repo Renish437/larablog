@@ -25,17 +25,20 @@ ADMIN ROUTES
  * 
  */
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::middleware([])->group(function () {
+    Route::middleware(['guest'])->group(function () {
         Route::controller(AuthController::class)->group(function () {
             Route::get('/login','loginForm')->name('login');
             Route::get('/register','registerForm')->name('register');
             Route::post('/login','loginHandler')->name('login.handler');
          
-            Route::get('/forgot-password','forgotForm')->name('forgot');
+        Route::get('/forgot-password', 'forgotForm')->name('forgot');
+Route::post('/send-password-reset-link', 'sendPasswordResetLink')->name('send.password.reset.link');
+Route::get('/reset-password/{token}', 'resetPasswordForm')->name('reset.password');
+Route::post('/reset-password', 'resetPasswordHandler')->name('reset.password.handler');
         });
     });
 
-    Route::middleware([])->group(function () {
+    Route::middleware(['auth'])->group(function () {
         Route::controller(AdminController::class)->group(function () {
             Route::get('/dashboard','adminDashboard')->name('dashboard');
               Route::post('/logout','logoutHandler')->name('logout');
