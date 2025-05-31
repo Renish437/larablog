@@ -4,9 +4,9 @@
 								<div class="profile-photo">
 									<a href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('profilePictureFile').click();" data-toggle="modal" data-target="#modal" class="edit-avatar"><i class="fa fa-pencil"></i></a>
 									<img src="{{ $user->picture }}" alt="" class="avatar-photo" id="profilePicturePreview">
-								     <form method="POST" action="{{ route('admin.update.profile.picture') }}" enctype="multipart/form-data">
+								    
     <input type="file" name="profilePictureFile" id="profilePictureFile" class="d-none">
-</form>
+
 								</div>
 								<h5 class="text-center h5 mb-0">{{ $user->name }}</h5>
 								<p class="text-center text-muted font-14">
