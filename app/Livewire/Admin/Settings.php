@@ -3,18 +3,110 @@
 namespace App\Livewire\Admin;
 
 use App\Models\GeneralSetting;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Settings extends Component
 {
+
+    use WithFileUploads;
+
     #[Url()]
     public $tab = null;
     public $default_tab= 'general_settings';
 
     public $site_title, $site_email, $site_phone, $site_meta_keywords, $site_meta_description, $site_logo, $site_favicon;
 
-
+public function updateLogo(){
+    $this->validate([
+        'site_logo' => 'required',
+    ]);
+    $settings = GeneralSetting::take(1)->first();
+    if(!is_null($settings)){
+        $filename = 'logo-' . time() . '.' . $this->site_logo->getClientOriginalExtension();
+       $filepath = $this->site_logo->store('site-logo', 'public');
+       if($settings->site_logo){
+        Storage::disk('public')->delete($settings->site_logo);
+       }
+        $updated = $settings->update([
+            'site_logo' => $filepath,
+        ]);
+        if($updated){
+            $this->dispatch('toastMagic',
+            status: 'success',
+            title: 'Logo Updated Successfully',
+            options: [
+                'showCloseBtn' => true,
+                'progressBar' => true,
+                'backdrop' => true,
+                'positionClass' => 'toast-top-left',
+            ]
+        );
+        }
+    }else{
+        $updated = GeneralSetting::create([
+            'site_logo' => $this->site_logo,
+        ]);
+        if($updated){
+            $this->dispatch('toastMagic',
+            status: 'success',
+            title: 'Logo Updated Successfully',
+            options: [
+                'showCloseBtn' => true,
+                'progressBar' => true,
+                'backdrop' => true,
+                'positionClass' => 'toast-top-left',
+            ]
+        );
+        }
+    }
+}
+public function updateFavicon(){
+    $this->validate([
+        'site_favicon' => 'required',
+    ]);
+    $settings = GeneralSetting::take(1)->first();
+    if(!is_null($settings)){
+        $filename = 'favicon-' . uniqid() . '.' . $this->site_favicon->getClientOriginalExtension();
+       $filepath = $this->site_favicon->store('site-favicon', 'public');
+       if($settings->site_favicon){
+        Storage::disk('public')->delete($settings->site_favicon);
+       }
+        $updated = $settings->update([
+            'site_favicon' => $filepath,
+        ]);
+        if($updated){
+            $this->dispatch('toastMagic',
+            status: 'success',
+            title: 'Favicon Updated Successfully',
+            options: [
+                'showCloseBtn' => true,
+                'progressBar' => true,
+                'backdrop' => true,
+                'positionClass' => 'toast-top-left',
+            ]
+        );
+        }
+    }else{
+        $updated = GeneralSetting::create([
+            'site_favicon' => $this->site_favicon,
+        ]);
+        if($updated){
+            $this->dispatch('toastMagic',
+            status: 'success',
+            title: 'Favicon Updated Successfully',
+            options: [
+                'showCloseBtn' => true,
+                'progressBar' => true,
+                'backdrop' => true,
+                'positionClass' => 'toast-top-left',
+            ]
+        );
+        }
+    }
+}
     public function selectedTab($tab){
         $this->tab = $tab;
     }

@@ -59,7 +59,7 @@
 	</head>
 	<body>
 		 @livewireStyles
-		{{-- <div class="pre-loader">
+		<div class="pre-loader">
 			<div class="pre-loader-box">
 				<div class="loader-logo">
 					<img src="/back/vendors/images/deskapp-logo.svg" alt="" />
@@ -70,7 +70,7 @@
 				<div class="percent" id="percent1">0%</div>
 				<div class="loading-text">Loading...</div>
 			</div>
-		</div> --}}
+		</div>
 
 		<div class="header">
 			<div class="header-left">
@@ -433,7 +433,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="{{ route('admin.dashboard') }}" class="dropdown-toggle no-arrow">
+							<a href="{{ route('admin.categories') }}" class="dropdown-toggle no-arrow">
 								<span class="micon fa fa-th-list"></span
 								><span class="mtext">Categories</span>
 							</a>

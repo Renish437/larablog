@@ -30,6 +30,10 @@ class AdminController extends Controller
     public function settingsView(Request $request){
         return view('back.pages.settings');
     }
+    public function categoriesView(Request $request){
+        return view('back.pages.category.categories');
+
+    }
 
  
 

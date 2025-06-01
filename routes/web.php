@@ -44,6 +44,7 @@ Route::post('/reset-password', 'resetPasswordHandler')->name('reset.password.han
               Route::post('/logout','logoutHandler')->name('logout');
               Route::get('/profile','profileView')->name('profile');
              Route::get('/settings','settingsView')->name('settings');
+             Route::get('/categories','categoriesView')->name('categories');
         });
     });
 });
