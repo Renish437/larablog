@@ -41,8 +41,13 @@
 		...
 		<!-- CSS -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	
    <link rel="stylesheet" type="text/css" href="/back/vendors/styles/core.css" />
+   <link rel="stylesheet" href="/extra-assets/jquery-ui/jquery-ui.min.css">
+   <link rel="stylesheet" href="/extra-assets/jquery-ui/jquery-ui.structure.min.css">
+   <link rel="stylesheet" href="/extra-assets/jquery-ui/jquery-ui.theme.min.css">
+
    {!! ToastMagic::styles() !!}
  </head>
 
@@ -480,7 +485,7 @@
 						<li>
 							<a
 								href="{{ route('admin.profile') }}"
-								target="_blank"
+								
 								class="dropdown-toggle no-arrow"
 							>
 								<span class="micon fa fa-user-circle"></span>
@@ -494,7 +499,7 @@
 						<li>
 							<a
 								href="{{ route('admin.settings') }}"
-								target="_blank"
+								
 								class="dropdown-toggle no-arrow"
 							>
 								<span class="micon fa fa-cogs"></span>
@@ -523,6 +528,7 @@
 		<script src="/back/vendors/scripts/script.min.js"></script>
 		<script src="/back/vendors/scripts/process.js"></script>
 		<script src="/back/vendors/scripts/layout-settings.js"></script>
+		<script src="/extra-assets/jquery-ui/jquery-ui.min.js"></script>
 		 <script src="https://cdn.jsdelivr.net/gh/sawastacks/kropify-laravel@3.0.0/src/resources/assets/js/kropify.min.js"></script>
  
 		     @livewireScripts

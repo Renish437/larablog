@@ -134,7 +134,7 @@
 											<!-- Personal Details Tab start -->
 											<div class="tab-pane fade {{ $tab == 'personal_details' ? ' show active' : '' }}" id="personal_details" role="tabpanel">
 												<div class="pd-20">
-												<form action="" wire:submit.prevent="updateProfile">
+												<form  wire:submit.prevent="updateProfile()">
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="form-group">

@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\ParentCategory;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 
@@ -10,6 +11,54 @@ class Categories extends Component
 {
     public $isUpdateParentCategoryMode = false;
     public $pcategory_id,$pcategory_name;
+
+    protected $listeners =[
+        'updateCategoryOrdering',
+        'performDeleteParentCategory'
+    ];
+
+    public function updateCategoryOrdering($positions){
+        foreach($positions as $position){
+            $index = $position[0];
+            $new_position = $position[1];
+            ParentCategory::where('id',$index)->update(['ordering' => $new_position]);
+            $this->dispatch('toastMagic',status: 'success',title: 'ParentCategory Order Updated Successfully',options: ['showCloseBtn' => true,'progressBar' => true,'backdrop' => true,'positionClass' => 'toast-top-left',]);
+        }
+    }
+
+    public function deleteParentCategory($id){
+       
+        $this->dispatch('deleteParentCategory', $id);
+    }
+   public function performDeleteParentCategory($id)
+{
+
+    $pcategory = ParentCategory::findOrFail($id);
+    $deleted = $pcategory->delete();
+    if ($deleted) {
+        $this->dispatch('toastMagic', 
+            status: 'success', 
+            title: 'Parent Category Deleted Successfully', 
+            options: [
+                'showCloseBtn' => true,
+                'progressBar' => true,
+                'backdrop' => true,
+                'positionClass' => 'toast-top-left',
+            ]
+        );
+    } else {
+        $this->dispatch('toastMagic', 
+            status: 'error', 
+            title: 'Something went wrong', 
+            options: [
+                'showCloseBtn' => true,
+                'progressBar' => true,
+                'backdrop' => true,
+                'positionClass' => 'toast-top-left',
+            ]
+        );
+    }
+}
 
     public function addParentCategory(){
           $this->pcategory_id = null;

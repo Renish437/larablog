@@ -19,9 +19,9 @@
                         <th>No of posts</th>
                         <th>Actions</th>
                     </thead>
-                    <tbody>
+                    <tbody id="sortable_parent_categories">
                        @forelse($pcategories as $pcategory)
-                         <tr>
+                         <tr data-index="{{ $pcategory->id }}" data-ordering="{{ $pcategory->ordering }}">
                             <td>{{ $pcategory->id }}</td>
                             <td >{{ $pcategory->name }}</td>
                             
@@ -29,7 +29,7 @@
                             <td>
                                 <div class="table-actions">
                                     <a href="javascript:;" wire:click="editParentCategory({{ $pcategory->id }})" class="btn btn-sm btn-primary text-white"><i class="dw dw-edit2 mr-1"></i> Edit</a>
-                                <a href="#" class="btn btn-sm btn-danger text-white"><i class="dw dw-delete-3 mr-1"></i>Delete</a>
+                                <a href="javascript:;" wire:click="deleteParentCategory({{ $pcategory->id }})" class="btn btn-sm btn-danger text-white"><i class="dw dw-delete-3 mr-1"></i>Delete</a>
                                 </div>
                             </td>
                         </tr>

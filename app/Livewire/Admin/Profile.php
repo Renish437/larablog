@@ -47,7 +47,7 @@ class Profile extends Component
         $this->email = $user->email;
         $this->username = $user->username;
         $this->bio = $user->bio;
-        $this->user = Auth::user();
+        $this->user = $user;
 
         if(!is_null($user->social_links)){
             $this->facebook = $user->social_links->facebook;
@@ -226,6 +226,9 @@ class Profile extends Component
         $user->username = $this->username;
         $user->bio = $this->bio;
         $updated = $user->save();
+
+        // Refresh the user object to reflect the updated data
+    $this->user = $user->fresh();
         sleep(0.5);
         if ($updated) {
             $this->dispatch(
@@ -261,7 +264,7 @@ class Profile extends Component
     public function render()
     {
         return view('livewire.admin.profile', [
-            'user' => User::find(Auth::user()->id)
+            'user' => $this->user
         ]);
     }
 }
