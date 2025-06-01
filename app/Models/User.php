@@ -9,6 +9,7 @@ use App\UserType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -56,8 +57,18 @@ class User extends Authenticatable
             'type'=>UserType::class
         ];
     }
-    public function getPictureAttribute($value)
-    {
-        return $value ? asset('/images/users/'.$value) : 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
+public function getPictureAttribute($value)
+{
+    if ($value && Storage::disk('public')->exists($value)) {
+        return Storage::url($value); // Returns http://.../storage/profile-photos/image.jpg
     }
+    return 'https://placeholder.url/image.png'; // Returns a placeholder URL
+}
+public function social_links() // Or singular: social_link
+{
+    return $this->hasOne(UserSocialLink::class, 'user_id', 'id');
+    // 'user_id' is the foreign key on the UserSocialLink table
+    // 'id' is the local key on the User table
+}
+    
 }

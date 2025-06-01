@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class TopUserInfo extends Component
 {
-    #[On('updatedUserInfo')]
+    #[On(['updatedUserInfo','profile-photo-updated'])]
     public function render()
     {
         return view('livewire.admin.top-user-info',[

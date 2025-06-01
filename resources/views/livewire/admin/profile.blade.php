@@ -1,13 +1,38 @@
 	<div class="row">
 						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-30">
 							<div class="pd-20 card-box height-100-p">
-								<div class="profile-photo">
-									<a href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('profilePictureFile').click();" data-toggle="modal" data-target="#modal" class="edit-avatar"><i class="fa fa-pencil"></i></a>
-									<img src="{{ $user->picture }}" alt="" class="avatar-photo" id="profilePicturePreview">
-								    
-    <input type="file" name="profilePictureFile" id="profilePictureFile" class="d-none">
+								 <div class="profile-photo">
+        <img src="{{ $user ? $user->picture : 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png' }}"
+             alt="Profile Picture"
+             class="avatar-photo"
+             id="profilePicturePreview">
 
-								</div>
+        {{-- Call a Livewire action to dispatch the event --}}
+        <a href="#" wire:click.prevent="triggerFileInput" class="edit-avatar">
+            <i class="fa fa-pencil"></i>
+        </a>
+
+        {{--
+            The form tag is not strictly necessary here if you're only using wire:model
+            for an auto-submitting file input, but it doesn't hurt.
+        --}}
+        <form wire:submit.prevent> {{-- Can be empty or remove wire:submit if not used for other purposes --}}
+            <input type="file"
+                   name="profilePictureFile"
+                   wire:model.live="photo" {{-- .live modifier ensures immediate upload/update for file inputs --}}
+                   id="profilePictureFile"
+                   class="d-none"
+                   accept="image/jpeg,image/png,jpg,image/gif,image/svg+xml"
+                   onchange="previewImage(event)"> {{-- JS function for client-side preview --}}
+
+            @error('photo') <span class="text-danger" style="display: block; margin-top: 5px;">{{ $message }}</span> @enderror
+        </form>
+
+        @if (session()->has('message'))
+            <div class="alert alert-success mt-2">{{ session('message') }}</div>
+        @endif
+    </div>
+
 								<h5 class="text-center h5 mb-0">{{ $user->name }}</h5>
 								<p class="text-center text-muted font-14">
                                     {{ $user->email }}
@@ -149,19 +174,90 @@
                                                     
 												</div>
 											</div>
-											<!-- Timeline Tab End -->
+											<!-- Personal Details Tab End -->
 											<!-- Tasks Tab start -->
 											<div class="tab-pane fade {{ $tab == 'update_password' ? ' show active' : '' }}" id="update_password" role="tabpanel">
-												<div class="pd-20 profile-task-wrap">
-												update password
-
+												<form class="pd-20 profile-task-wrap" wire:submit.prevent="updatePassword">
+												<div class="row">
+													<div class="col-md-4">
+														<div class="form-group">
+															<label for="current_password">Current Password</label>
+															<input type="password" class="form-control" id="current_password" wire:model="current_password" placeholder="Enter your current password">
+															@error('current_password') <span class="text-danger">{{ $message }}</span> @enderror
+														</div>
+													</div>
+													<div class="col-md-4">
+														<div class="form-group">
+															<label for="new_password">New Password</label>
+															<input type="password" class="form-control" id="new_password" wire:model="new_password" placeholder="Enter your new password">
+															@error('new_password') <span class="text-danger">{{ $message }}</span> @enderror
+														</div>
+													</div>
+													<div class="col-md-4">
+														<div class="form-group">
+															<label for="new_password_confirmation">Confirm Password</label>
+															<input type="password" class="form-control" id="new_password_confirmation" wire:model="new_password_confirmation" placeholder="Enter your confirm password">
+															@error('new_password_confirmation') <span class="text-danger">{{ $message }}</span> @enderror
+														</div>
+													</div>
 												</div>
+                                                
+												<button type="submit" class="btn btn-primary">Update Password</button>
+												</form>
 											</div>
 											<!-- Tasks Tab End -->
 											<!-- Setting Tab start -->
 											<div class="tab-pane fade height-100-p {{ $tab == 'social_links' ? ' show active' : '' }}" id="social_links" role="tabpanel">
 												<div class="pd-20 profile-task-wrap">
-												social
+												<form  wire:submit.prevent="updateSocialLinks">
+													<div class="row">
+														<div class="col-md-6">
+															<div class="mb-3">
+																<label for="">Facebook</label>
+																<input type="text" class="form-control" wire:model="facebook" placeholder="Enter your facebook link">
+																@error('facebook') <span class="text-danger">{{ $message }}</span> @enderror
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="mb-3">
+																<label for="">Instagram</label>
+																<input type="text" class="form-control" wire:model="instagram" placeholder="Enter your instagram link">
+																@error('instagram') <span class="text-danger">{{ $message }}</span> @enderror
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="mb-3">
+																<label for="">YouTube</label>
+																<input type="text" class="form-control" wire:model="youtube" placeholder="Enter your youtube link">
+																@error('youtube') <span class="text-danger">{{ $message }}</span> @enderror
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="mb-3">
+																<label for="">Linkedin</label>
+																<input type="text" class="form-control" wire:model="linkedin" placeholder="Enter your linkedin link">
+																@error('linkedin') <span class="text-danger">{{ $message }}</span> @enderror
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="mb-3">
+																<label for="">Twitter</label>
+																<input type="text" class="form-control" wire:model="twitter" placeholder="Enter your twitter link">
+																@error('twitter') <span class="text-danger">{{ $message }}</span> @enderror
+															</div>
+														</div>
+
+														<div class="col-md-6">
+															<div class="mb-3">
+																<label for="">Github</label>
+																<input type="text" class="form-control" wire:model="github" placeholder="Enter your github link">
+																@error('github') <span class="text-danger">{{ $message }}</span> @enderror
+															</div>
+														</div>
+													</div>
+
+													<button type="submit" class="btn btn-primary">Update Social Links</button>
+												</form>
 
 												</div>
 											</div>
@@ -172,3 +268,28 @@
 							</div>
 						</div>
 					</div>
+					@push('scripts')
+					<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imgPreview = document.getElementById('profilePicturePreview');
+                if (imgPreview) { // Add null check
+                    imgPreview.src = e.target.result;
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    document.addEventListener('trigger-file-input-click', event => {
+        console.log('trigger-file-input-click event received');
+        const fileInput = document.getElementById('profilePictureFile');
+        if (fileInput) { // Add null check
+            fileInput.click();
+        }
+    });
+</script>
+					@endpush

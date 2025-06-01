@@ -110,14 +110,18 @@
             <p>Your password has been successfully updated. Below are your account details:</p>
             <div class="info-box">
                 <p><strong>Username/Email:</strong> {{ $user->email }}</p>
+                @if($new_password)
+                    <p><strong>New Password:</strong> {{ $new_password }}</p>
+                @endif
+
             </div>
             <p>For security, we recommend keeping your password safe and not sharing it with anyone.</p>
             <p>If you did not initiate this change, please contact our support team immediately.</p>
             <a href="{{ $loginLink }}" class="button">Log In to Your Account</a>
         </div>
         <div class="footer">
-            <p>© {{ now()->year }} {{ $company_name }}. All rights reserved.</p>
-            <p>If you have any questions, contact us at <a href="mailto:{{ $support_email }}">{{ $support_email }}</a>.</p>
+            <p>© {{ now()->year }} Larablog. All rights reserved.</p>
+           
         </div>
     </div>
 </body>

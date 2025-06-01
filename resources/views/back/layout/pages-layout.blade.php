@@ -143,7 +143,7 @@
 					<div class="dropdown">
 						<a
 							class="dropdown-toggle no-arrow"
-							href="javascript:;"
+							href="{{ route('admin.settings') }}"
 							data-toggle="right-sidebar"
 						>
 							<i class="dw dw-settings2"></i>
@@ -472,7 +472,9 @@
 							<div class="dropdown-divider"></div>
 						</li>
 						<li>
-							<div class="sidebar-small-cap">Settings</div>
+							<a href="{{ route('admin.settings') }}">
+								<div class="sidebar-small-cap">Settings</div>
+							</a>
 						</li>
 					
 						<li>
@@ -491,7 +493,7 @@
 					
 						<li>
 							<a
-								href=""
+								href="{{ route('admin.settings') }}"
 								target="_blank"
 								class="dropdown-toggle no-arrow"
 							>
@@ -536,8 +538,10 @@
 			})
 		 </script>
 
-		@stack('scripts')
-             @kropifyScripts
-		{!! ToastMagic::scripts() !!}
+@kropifyScripts
+{!! ToastMagic::scripts() !!}
+@stack('scripts')
+@include('back.pages.include.toast-magic')
+		
 	</body>
 </html>
