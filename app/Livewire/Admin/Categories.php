@@ -4,6 +4,7 @@ namespace App\Livewire\Admin;
 
 use App\Models\Category;
 use App\Models\ParentCategory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -45,26 +46,61 @@ class Categories extends Component
        
         $this->dispatch('deleteParentCategory', $id);
     }
-   public function performDeleteParentCategory($id)
+public function performDeleteParentCategory($id)
 {
+    // It's good practice to wrap this in a transaction
+    // to ensure that if anything fails, the whole operation is rolled back.
+    DB::beginTransaction();
 
-    $pcategory = ParentCategory::findOrFail($id);
-    $deleted = $pcategory->delete();
-    if ($deleted) {
-        $this->dispatch('toastMagic', 
-            status: 'success', 
-            title: 'Parent Category Deleted Successfully', 
-            options: [
-                'showCloseBtn' => true,
-                'progressBar' => true,
-                'backdrop' => true,
-                'positionClass' => 'toast-top-left',
-            ]
-        );
-    } else {
-        $this->dispatch('toastMagic', 
-            status: 'error', 
-            title: 'Something went wrong', 
+    try {
+        $pcategory = ParentCategory::with('categories')->findOrFail($id); // Eager load categories
+
+        // Update child categories to set their parent_category_id to NULL
+        // This is more efficient than looping and updating one by one.
+        if ($pcategory->categories->isNotEmpty()) {
+            // This updates all related categories in a single query
+            $pcategory->categories()->update(['parent_category_id' => null]);
+        }
+        // Alternative if you didn't eager load:
+        // Category::where('parent_category_id', $pcategory->id)->update(['parent_category_id' => null]);
+
+
+        // Now, delete the parent category.
+        // Since its children no longer reference it, the RESTRICT constraint won't block this.
+        $deleted = $pcategory->delete();
+
+        if ($deleted) {
+            DB::commit(); // All good, commit the transaction
+            $this->dispatch('toastMagic',
+                status: 'success',
+                title: 'Parent Category Deleted Successfully',
+                options: [
+                    'showCloseBtn' => true,
+                    'progressBar' => true,
+                    'backdrop' => true,
+                    'positionClass' => 'toast-top-left',
+                ]
+            );
+        } else {
+            DB::rollBack(); // Something went wrong with the delete itself
+            $this->dispatch('toastMagic',
+                status: 'error',
+                title: 'Failed to delete parent category.',
+                options: [
+                    'showCloseBtn' => true,
+                    'progressBar' => true,
+                    'backdrop' => true,
+                    'positionClass' => 'toast-top-left',
+                ]
+            );
+        }
+    } catch (\Exception $e) {
+        DB::rollBack(); // Something went wrong (e.g., findOrFail, or other DB error)
+        // Log the error for debugging: \Log::error($e->getMessage());
+        $this->dispatch('toastMagic',
+            status: 'error',
+            title: 'An error occurred.',
+            message: 'Could not delete parent category. ' . $e->getMessage(), // More detailed for dev, careful for prod
             options: [
                 'showCloseBtn' => true,
                 'progressBar' => true,
@@ -147,6 +183,7 @@ public function performDeleteCategory($id)
 {
 
     $category = Category::findOrFail($id);
+  
     $deleted = $category->delete();
     if ($deleted) {
         $this->dispatch('toastMagic', 

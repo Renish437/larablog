@@ -17,9 +17,11 @@
 							<a class="dropdown-item" href="{{ route('admin.profile') }}"
 								><i class="dw dw-user1"></i> Profile</a
 							>
+							  @if(Auth::user()->type == 'superAdmin')
 							<a class="dropdown-item" href="{{ route('admin.settings') }}"
 								><i class="dw dw-settings2"></i> Setting</a
 							>
+							  @endif
 							<a class="dropdown-item" href="faq.html"
 								><i class="dw dw-help"></i> Help</a
 							>

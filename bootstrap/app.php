@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\OnlySuperAdmin;
 use App\Http\Middleware\PreventBackHistroy;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -14,7 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         //
         $middleware->alias([
-            'preventBackHistroy' => PreventBackHistroy::class
+            'preventBackHistroy' => PreventBackHistroy::class,
+            'onlySuperAdmin' => OnlySuperAdmin::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

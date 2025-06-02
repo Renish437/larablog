@@ -12,7 +12,7 @@
 			rel="apple-touch-icon"
 			sizes="180x180"
 			href="/back/vendors/images/apple-touch-icon.png"
-		/>
+		/>	
 		<link
 			rel="icon"
 			type="image/png"
@@ -144,7 +144,8 @@
 				</div>
 			</div>
 			<div class="header-right">
-				<div class="dashboard-setting user-notification">
+				  @if(Auth::user()->type == 'superAdmin')
+				    <div class="dashboard-setting user-notification">
 					<div class="dropdown">
 						<a
 							class="dropdown-toggle no-arrow"
@@ -155,6 +156,7 @@
 						</a>
 					</div>
 				</div>
+				@endif
 				<div class="user-notification">
 					<div class="dropdown">
 						<a
@@ -432,17 +434,19 @@
 					<ul id="accordion-menu">
 					
 						<li>
-							<a href="{{ route('admin.dashboard') }}" class="dropdown-toggle no-arrow">
+							<a href="{{ route('admin.dashboard') }}" class="dropdown-toggle no-arrow {{ Route::is('admin.dashboard') ? 'active' : '' }}">
 								<span class="micon fa fa-home"></span
 								><span class="mtext">Home</span>
 							</a>
 						</li>
+						  @if(Auth::user()->type == 'superAdmin')
 						<li>
-							<a href="{{ route('admin.categories') }}" class="dropdown-toggle no-arrow">
+							<a href="{{ route('admin.categories') }}" class="dropdown-toggle no-arrow {{ Route::is('admin.categories') ? 'active' : '' }}">
 								<span class="micon fa fa-th-list"></span
 								><span class="mtext">Categories</span>
 							</a>
 						</li>
+						@endif
 						<li class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle">
 								<span class="micon fa fa-newspaper-o"></span
@@ -454,7 +458,8 @@
 								
 							</ul>
 						</li>
-						<li class="dropdown">
+                      @if(Auth::user()->type == 'superAdmin')
+					  						<li class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle">
 								<span class="micon fa fa-shopping-bag"></span
 								><span class="mtext">Shop</span>
@@ -465,6 +470,8 @@
 							
 							</ul>
 						</li>
+
+					  @endif
 					
 <li>
 							<a href="sitemap.html" class="dropdown-toggle no-arrow">
@@ -476,8 +483,9 @@
 						<li>
 							<div class="dropdown-divider"></div>
 						</li>
+						
 						<li>
-							<a href="{{ route('admin.settings') }}">
+							<a href="javascript:;" >
 								<div class="sidebar-small-cap">Settings</div>
 							</a>
 						</li>
@@ -486,7 +494,7 @@
 							<a
 								href="{{ route('admin.profile') }}"
 								
-								class="dropdown-toggle no-arrow"
+								class="dropdown-toggle no-arrow {{ Route::is('admin.profile') ? 'active' : '' }}"
 							>
 								<span class="micon fa fa-user-circle"></span>
 								<span class="mtext"
@@ -495,12 +503,12 @@
 								/></span>
 							</a>
 						</li>
-					
+					   @if(Auth::user()->type == 'superAdmin')
 						<li>
 							<a
 								href="{{ route('admin.settings') }}"
 								
-								class="dropdown-toggle no-arrow"
+								class="dropdown-toggle no-arrow {{ Route::is('admin.settings') ? 'active' : '' }}"
 							>
 								<span class="micon fa fa-cogs"></span>
 								<span class="mtext"
@@ -509,6 +517,7 @@
 								/></span>
 							</a>
 						</li>
+						@endif
 					</ul>
 				</div>
 			</div>
@@ -529,22 +538,12 @@
 		<script src="/back/vendors/scripts/process.js"></script>
 		<script src="/back/vendors/scripts/layout-settings.js"></script>
 		<script src="/extra-assets/jquery-ui/jquery-ui.min.js"></script>
-		 <script src="https://cdn.jsdelivr.net/gh/sawastacks/kropify-laravel@3.0.0/src/resources/assets/js/kropify.min.js"></script>
+		
  
 		     @livewireScripts
-         <script>
-			window.addEventListener("showToastr", function (event) {
-				$().notifa({
-					vers:2,
-					cssClass:event.detail[0].type,
+       
 
-					html:event.detail[0].message
-					delay:2500
-				})
-			})
-		 </script>
 
-@kropifyScripts
 {!! ToastMagic::scripts() !!}
 @stack('scripts')
 @include('back.pages.include.toast-magic')

@@ -43,8 +43,12 @@ Route::post('/reset-password', 'resetPasswordHandler')->name('reset.password.han
             Route::get('/dashboard','adminDashboard')->name('dashboard');
               Route::post('/logout','logoutHandler')->name('logout');
               Route::get('/profile','profileView')->name('profile');
-             Route::get('/settings','settingsView')->name('settings');
+         
+
+             Route::middleware(['onlySuperAdmin'])->group(function () {
+            Route::get('/settings','settingsView')->name('settings');
              Route::get('/categories','categoriesView')->name('categories');
+             });
         });
     });
 });

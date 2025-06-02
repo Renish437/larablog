@@ -70,5 +70,9 @@ public function social_links() // Or singular: social_link
     // 'user_id' is the foreign key on the UserSocialLink table
     // 'id' is the local key on the User table
 }
+public function getTypeAttribute($value)
+{
+    return $value;
+}
     
 }
