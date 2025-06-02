@@ -2,17 +2,14 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
-/**
- Test
 
- * 
- */
 Route::view('example-page', 'example-page');
 Route::view('example-auth', 'example-auth');
 Route::get('/admin/logout', function () {
@@ -49,6 +46,11 @@ Route::post('/reset-password', 'resetPasswordHandler')->name('reset.password.han
             Route::get('/settings','settingsView')->name('settings');
              Route::get('/categories','categoriesView')->name('categories');
              });
+        });
+        Route::controller(PostController::class)->group(function () {
+            Route::get('/posts/new','addPost')->name('posts.create');
+            Route::post('/posts/new','storePost')->name('posts.store');
+            Route::get('/posts','postsView')->name('posts.index');
         });
     });
 });

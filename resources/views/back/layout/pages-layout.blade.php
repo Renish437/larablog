@@ -47,6 +47,7 @@
    <link rel="stylesheet" href="/extra-assets/jquery-ui/jquery-ui.min.css">
    <link rel="stylesheet" href="/extra-assets/jquery-ui/jquery-ui.structure.min.css">
    <link rel="stylesheet" href="/extra-assets/jquery-ui/jquery-ui.theme.min.css">
+     <link rel="stylesheet" href="{{ asset('extra-assets/ijabo/ijaboCropTool.min.css') }}">
 
    {!! ToastMagic::styles() !!}
  </head>
@@ -149,7 +150,7 @@
 					<div class="dropdown">
 						<a
 							class="dropdown-toggle no-arrow"
-							href="{{ route('admin.settings') }}"
+							href="javascript:;"
 							data-toggle="right-sidebar"
 						>
 							<i class="dw dw-settings2"></i>
@@ -448,13 +449,13 @@
 						</li>
 						@endif
 						<li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-toggle {{ Route::is('admin.posts.*') ? 'active' : '' }}">
 								<span class="micon fa fa-newspaper-o"></span
 								><span class="mtext"> Posts </span>
 							</a>
 							<ul class="submenu">
-								<li><a href="">New</a></li>
-								<li><a href="">Posts</a></li>
+								<li><a  href="{{ route('admin.posts.create') }}">New</a></li>
+								<li><a href="{{ route('admin.posts.index') }}">Posts</a></li>
 								
 							</ul>
 						</li>
@@ -545,8 +546,10 @@
 
 
 {!! ToastMagic::scripts() !!}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="{{ asset('extra-assets/ijabo/ijaboCropTool.min.js') }}"></script> 
 @stack('scripts')
 @include('back.pages.include.toast-magic')
-		
+
 	</body>
 </html>
