@@ -47,8 +47,10 @@
    <link rel="stylesheet" href="/extra-assets/jquery-ui/jquery-ui.min.css">
    <link rel="stylesheet" href="/extra-assets/jquery-ui/jquery-ui.structure.min.css">
    <link rel="stylesheet" href="/extra-assets/jquery-ui/jquery-ui.theme.min.css">
+  
+    
      <link rel="stylesheet" href="{{ asset('extra-assets/ijabo/ijaboCropTool.min.css') }}">
-
+	@stack('styles')
    {!! ToastMagic::styles() !!}
  </head>
 
@@ -449,7 +451,7 @@
 						</li>
 						@endif
 						<li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle {{ Route::is('admin.posts.*') ? 'active' : '' }}">
+							<a href="#" class="dropdown-toggle {{ Route::is('admin.posts.*') ? 'active' : '' }}">
 								<span class="micon fa fa-newspaper-o"></span
 								><span class="mtext"> Posts </span>
 							</a>
@@ -546,8 +548,9 @@
 
 
 {!! ToastMagic::scripts() !!}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
  <script src="{{ asset('extra-assets/ijabo/ijaboCropTool.min.js') }}"></script> 
+ 
 @stack('scripts')
 @include('back.pages.include.toast-magic')
 
