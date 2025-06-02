@@ -2,27 +2,42 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\Category;
 use App\Models\ParentCategory;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
-
+use Livewire\WithPagination;
 
 class Categories extends Component
 {
+    use WithPagination;
     public $isUpdateParentCategoryMode = false;
     public $pcategory_id,$pcategory_name;
-
+    public $isUpdateCategoryMode = false;
+    public $category_id,$parent=0,$category_name;
     protected $listeners =[
+        'updateParentCategoryOrdering',
         'updateCategoryOrdering',
-        'performDeleteParentCategory'
+        'performDeleteParentCategory',
+        'performDeleteCategory'
+      
     ];
-
-    public function updateCategoryOrdering($positions){
+  public $pcategoriesPerPage = 3;
+  public $categoriesPerPage = 3;
+    public function updateParentCategoryOrdering($positions){
         foreach($positions as $position){
             $index = $position[0];
             $new_position = $position[1];
             ParentCategory::where('id',$index)->update(['ordering' => $new_position]);
             $this->dispatch('toastMagic',status: 'success',title: 'ParentCategory Order Updated Successfully',options: ['showCloseBtn' => true,'progressBar' => true,'backdrop' => true,'positionClass' => 'toast-top-left',]);
+        }
+    }
+    public function updateCategoryOrdering($positions){
+        foreach($positions as $position){
+            $index = $position[0];
+            $new_position = $position[1];
+            Category::where('id',$index)->update(['ordering' => $new_position]);
+            $this->dispatch('toastMagic',status: 'success',title: 'Category Order Updated Successfully',options: ['showCloseBtn' => true,'progressBar' => true,'backdrop' => true,'positionClass' => 'toast-top-left',]);
         }
     }
 
@@ -59,7 +74,102 @@ class Categories extends Component
         );
     }
 }
+public function addCategory(){
+    $this->category_id = null;
+    $this->parent = 0;
+    $this->category_name = null;
+    $this->isUpdateCategoryMode = false;
+    $this->showCategoryModalForm();
+}
+public function createCategory(){
+    $this->validate([
+        'category_name' => 'required|unique:categories,name'
+    ],[
+        'category_name.required' => 'Category field is required',
+        'category_name.unique' => 'Category name already exists'
+    ]);
+    $category = new Category();
+    $category->name = $this->category_name;
+    $category->parent_category_id = $this->parent;
+    $saved = $category->save();
+    if($saved){
+        $this->hideCategoryModalForm();
+        $this->dispatch('toastMagic',status: 'success',title: 'Category Created Successfully',options: ['showCloseBtn' => true,'progressBar' => true,'backdrop' => true,'positionClass' => 'toast-top-left',]);
+    }else{
+        $this->dispatch('toastMagic',status: 'error',title: 'Something went wrong',options: ['showCloseBtn' => true,'progressBar' => true,'backdrop' => true,'positionClass' => 'toast-top-left',]);
+    }
 
+}
+public function editCategory($category_id){
+    
+    $category = Category::findOrFail($category_id);
+    $this->category_id = $category->id;
+    $this->category_name = $category->name;
+    $this->parent = $category->parent_category_id;
+    $this->isUpdateCategoryMode = true;
+    $this->showCategoryModalForm();
+}
+public function updateCategory(){
+    $category = Category::findOrFail($this->category_id);
+    $this->validate([
+        'category_name' => 'required|unique:categories,name,'.$category->id,
+    ],[
+        'category_name.required' => 'Category field is required',
+        'category_name.unique' => 'Category name already exists',
+    ]);
+    $category->name = $this->category_name;
+    $category->parent_category_id = $this->parent;
+    $category->slug = null;
+    $saved = $category->save();
+    if($saved){
+        $this->hideCategoryModalForm();
+        $this->dispatch('toastMagic',status: 'success',title: 'Category Updated Successfully',options: ['showCloseBtn' => true,'progressBar' => true,'backdrop' => true,'positionClass' => 'toast-top-left',]);
+    }else{
+        $this->dispatch('toastMagic',status: 'error',title: 'Something went wrong',options: ['showCloseBtn' => true,'progressBar' => true,'backdrop' => true,'positionClass' => 'toast-top-left',]);
+    }
+
+}
+public function showCategoryModalForm(){
+$this->resetErrorBag();
+$this->dispatch('showCategoryModalForm');
+}
+public function hideCategoryModalForm(){
+$this->dispatch('hideCategoryModalForm');
+$this->isUpdateCategoryMode = false;
+$this->category_id=$this->category_name=null;
+$this->parent=0;
+}
+public function deleteCategory($id){
+
+    $this->dispatch('deleteCategory', $id);
+}
+public function performDeleteCategory($id)
+{
+
+    $category = Category::findOrFail($id);
+    $deleted = $category->delete();
+    if ($deleted) {
+        $this->dispatch('toastMagic', 
+            status: 'success', 
+            title: 'Category Deleted Successfully', 
+            options: [
+                'showCloseBtn' => true,
+                'progressBar' => true,
+                'backdrop' => true,
+                'positionClass' => 'toast-top-left',
+            ]
+        );
+    } else {
+        $this->dispatch('toastMagic', 
+            status: 'error', 
+            title: 'Something went wrong', 
+            options: [
+                'showCloseBtn' => true,
+                'progressBar' => true,
+                ]
+        );
+    }
+}
     public function addParentCategory(){
           $this->pcategory_id = null;
           $this->pcategory_name = null;
@@ -127,7 +237,8 @@ class Categories extends Component
     {
 
         return view('livewire.admin.categories',[
-            'pcategories' => ParentCategory::orderBy('ordering','asc')->get()
+            'pcategories' => ParentCategory::orderBy('ordering','asc')->paginate($this->pcategoriesPerPage,['*'], 'pcat_page'),
+            'categories' => Category::orderBy('ordering','asc')->paginate($this->categoriesPerPage,['*'], 'cat_page'),
         ]);
     }
 }

@@ -18,6 +18,9 @@ class Category extends Model
         'parent_category_id',
         'ordering',
     ];
+    public function parentCategory(){
+        return $this->belongsTo(ParentCategory::class);
+    }
      public function sluggable(): array
     {
         return [

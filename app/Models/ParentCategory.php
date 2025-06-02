@@ -16,6 +16,9 @@ class ParentCategory extends Model
         'slug',
         'ordering',
     ];
+    public function categories(){
+        return $this->hasMany(Category::class);
+    }
      public function sluggable(): array
     {
         return [
