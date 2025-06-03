@@ -60,7 +60,8 @@ class CreatePost extends Component
     $post->featured_image = $path;
     $post->save();
 
-      $this->reset('title','content','meta_keywords','meta_description','category','visibility','tags','featured_image');
+      $this->reset(['title','content','meta_keywords','meta_description','category','visibility','tags','featured_image']);
+      $this->dispatch('clearFroalaContent');
       $this->dispatch('toastMagic',status: 'success',title: 'Post Created Successfully',options: ['showCloseBtn' => true,'progressBar' => true,'backdrop' => true,'positionClass' => 'toast-top-left',]);
 
     }

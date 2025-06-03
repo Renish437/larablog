@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\ParentCategory;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -31,5 +33,9 @@ class PostController extends Controller
   
   
     return view('back.pages.post.add',compact('pcategories','categories','categories_html'));
+    }
+    public function postsView(){
+     $posts = Post::where('user_id',Auth::user()->id)->with('category')->orderBy('created_at','DESC')->get();
+     return view('back.pages.post.index',compact('posts'));
     }
 }

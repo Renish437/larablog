@@ -86,7 +86,7 @@
 										<div class="input-group mb-0">
 											<a
 												class="btn btn-outline-primary btn-lg btn-block"
-												href="register.html"
+												href="{{ route('admin.register') }}"
 												>Register To Create Account</a
 											>
 										</div>

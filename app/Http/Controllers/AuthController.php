@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\CMail;
 use App\Models\User;
 use App\UserStatus;
+use App\UserType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,37 @@ class AuthController extends Controller
     }
     public function forgotForm(){
         return view('back.pages.auth.forgot');
+    }
+    public function registerForm(){
+        return view('back.pages.auth.register');
+    }
+    public function registerHandler(Request $request){
+        $request->validate([
+            'name' => 'required|min:3|unique:users,name',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:4',
+            'password_confirmation' => 'required|same:password',
+        ],[
+            'name.required' => 'Enter your name',
+            'email.required' => 'Enter your email address',
+            'email.email' => 'Enter a valid email address',
+            'email.unique' => 'Email address already exists',
+            'password.required' => 'Enter your password',
+            'password.min' => 'Password must be at least 4 characters',
+            'password_confirmation.required' => 'Confirm your password',
+            'password_confirmation.same' => 'Passwords do not match',
+        ]
+        );
+
+        User::create([
+            'username' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'status' => UserStatus::Active,
+             'name'=> $request->name,
+            'type' => UserType::Admin,
+        ]);
+        return to_route('admin.login')->with('success','Account created successfully');
     }
     public function loginHandler(Request $request){
        $fieldType = filter_var($request->login_id, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';

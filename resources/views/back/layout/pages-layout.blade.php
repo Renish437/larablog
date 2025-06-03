@@ -5,6 +5,7 @@
 		<!-- Basic Page Info -->
 		<meta charset="utf-8" />
 		  <meta name="csrf-token" content="{{ csrf_token() }}">
+		
 		<title>@yield('title') </title>
 
 		<!-- Site favicon -->
@@ -47,9 +48,15 @@
    <link rel="stylesheet" href="/extra-assets/jquery-ui/jquery-ui.min.css">
    <link rel="stylesheet" href="/extra-assets/jquery-ui/jquery-ui.structure.min.css">
    <link rel="stylesheet" href="/extra-assets/jquery-ui/jquery-ui.theme.min.css">
-  
+
     
      <link rel="stylesheet" href="{{ asset('extra-assets/ijabo/ijaboCropTool.min.css') }}">
+	 <link rel="stylesheet" href="{{ asset('back/src/plugins/bootstrap-wysihtml5-master/bootstrap-wysihtml5.css') }}">
+
+
+	
+
+	
 	@stack('styles')
    {!! ToastMagic::styles() !!}
  </head>
@@ -550,9 +557,13 @@
 {!! ToastMagic::scripts() !!}
 
  <script src="{{ asset('extra-assets/ijabo/ijaboCropTool.min.js') }}"></script> 
+ <script src="{{ asset('back/src/plugins/bootstrap-wysihtml5-master/bootstrap-wysihtml5.js') }}"></script>
+ 	
  
-@stack('scripts')
-@include('back.pages.include.toast-magic')
+ @include('back.pages.include.toast-magic')
+ @stack('scripts')
+  
+ 
 
 	</body>
 </html>

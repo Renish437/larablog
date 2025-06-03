@@ -34,4 +34,11 @@
 						</div>
 					</div>
              <livewire:admin.create-post :categories_html="$categories_html"/>
+			
 @endsection
+@push('scripts')
+<script src="/ckeditor/ckeditor.js"></script>
+	
+@endpush
+  
+                

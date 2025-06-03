@@ -29,7 +29,8 @@ class User extends Authenticatable
         'picture',
         'bio',
         'type',
-        'status'
+        'status',
+      
 
     ];
 
@@ -53,8 +54,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'status'=>UserStatus::class,
-            'type'=>UserType::class
+        'status' => UserStatus::class,
+        // 'type' => UserType::class,
         ];
     }
 public function getPictureAttribute($value)
@@ -62,7 +63,7 @@ public function getPictureAttribute($value)
     if ($value && Storage::disk('public')->exists($value)) {
         return Storage::url($value); // Returns http://.../storage/profile-photos/image.jpg
     }
-    return 'https://placeholder.url/image.png'; // Returns a placeholder URL
+    return 'https://img.freepik.com/premium-vector/vector-flat-illustration-grayscale-avatar-user-profile-person-icon-profile-picture-business-profile-woman-suitable-social-media-profiles-icons-screensavers-as-templatex9_719432-1328.jpg?semt=ais_hybrid&w=740'; // Returns a placeholder URL
 }
 public function social_links() // Or singular: social_link
 {
@@ -73,6 +74,9 @@ public function social_links() // Or singular: social_link
 public function getTypeAttribute($value)
 {
     return $value;
+}
+public function posts(){
+    return $this->hasMany(Post::class);
 }
     
 }
