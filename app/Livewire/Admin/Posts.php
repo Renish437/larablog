@@ -32,6 +32,9 @@ class Posts extends Component
         'visibility' => ['except' => ''],
         'sortBy' => ['except' => ''],
     ];
+    protected $listeners = [
+        'performDeletePost'
+    ];
 
     public function updatedSearch(){
         $this->resetPage();
@@ -109,5 +112,13 @@ class Posts extends Component
             'authors'=>User::whereHas('posts')->get(),
             
         ]);
+    }
+    public function deletePost($id){
+       $this->dispatch('deletePost', $id);
+    }
+    public function performDeletePost($id){
+       $post= Post::findOrFail($id);
+       $post->delete();
+      $this->dispatch('toastMagic',status: 'success',title: 'Post Deleted Successfully',options: ['showCloseBtn' => true,'progressBar' => true,'backdrop' => true,'positionClass' => 'toast-top-left',]);
     }
 }

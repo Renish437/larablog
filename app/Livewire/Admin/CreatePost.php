@@ -63,7 +63,8 @@ class CreatePost extends Component
       $this->reset(['title','content','meta_keywords','meta_description','category','visibility','tags','featured_image']);
       $this->dispatch('clearFroalaContent');
       $this->dispatch('toastMagic',status: 'success',title: 'Post Created Successfully',options: ['showCloseBtn' => true,'progressBar' => true,'backdrop' => true,'positionClass' => 'toast-top-left',]);
-
+       session()->flash('success', 'Post updated Successfully');
+$this->redirect(route('admin.posts.index'));
     }
     public function mount($categories_html){
       $this->categories_html = $categories_html;

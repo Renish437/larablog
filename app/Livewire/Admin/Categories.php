@@ -184,7 +184,20 @@ public function performDeleteCategory($id)
 
     $category = Category::findOrFail($id);
   
-    $deleted = $category->delete();
+    if($category->posts()->count() > 0){
+        $this->dispatch('toastMagic', 
+            status: 'error', 
+            title: 'Category cannot be deleted because it has '.$category->posts()->count().' related  posts', 
+            options: [
+                'showCloseBtn' => true,
+                'progressBar' => true,
+                'backdrop' => true,
+                'positionClass' => 'toast-top-left',
+            ]);
+        return;
+    }
+    else{
+$deleted = $category->delete();
     if ($deleted) {
         $this->dispatch('toastMagic', 
             status: 'success', 
@@ -206,6 +219,8 @@ public function performDeleteCategory($id)
                 ]
         );
     }
+    }
+    
 }
     public function addParentCategory(){
           $this->pcategory_id = null;

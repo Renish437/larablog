@@ -72,7 +72,7 @@
                             <td>{{ $category->id }}</td>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->parentCategory->name ?? 'N/A' }}</td>
-                            <td>4</td>
+                            <td>{{ $category->posts->count() }}</td>
                             <td>
                                 <div class="table-actions">
                                     <a href="javascript:;" wire:click="editCategory({{ $category->id }})" class="btn btn-sm btn-primary text-white"><i class="dw dw-edit2 mr-1"></i> Edit</a>

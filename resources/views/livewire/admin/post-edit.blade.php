@@ -1,4 +1,4 @@
-<form wire:submit.prevent="createPost" autocomplete="off" enctype="multipart/form-data" id="addPostForm">
+<form wire:submit.prevent="updatePost" autocomplete="off" enctype="multipart/form-data" id="updatePostForm">
     @csrf
     <div class="row">
         <div class="col-md-9">
@@ -71,6 +71,11 @@
                         <img wire:loading.remove wire:target="featured_image" src="{{ $featured_image->temporaryUrl() }}" class="img-thumbnail" id="featured_image_preview" alt="img_preview">
                     </div>
                     @endif
+                    
+                       <div class="d-block mb-3" style="max-width: 250px;">
+                        <img   src="{{ $post->image }}" class="img-thumbnail" id="featured_image_previews" alt="img_previews">
+                    </div> 
+                    
 
                     <div class="form-group">
                         <label for="tags" class="font-weight-bold"><b>Tags</b></label>
@@ -98,10 +103,10 @@
         </div>
     </div>
     <div class="mb-3">
-        <button wire:loading.attr="disabled" wire:target="createPost" type="submit" class="btn btn-primary">
-            <span wire:loading wire:target="createPost">Uploading...</span>
-            <span wire:loading.remove wire:target="createPost">Create Post</span>
-        </button>
+       <button wire:loading.attr="disabled" wire:target="updatePost" type="submit" class="btn btn-primary">
+                <span wire:loading wire:target="updatePost">Updating...</span>
+                <span wire:loading.remove wire:target="updatePost">Update Post</span>
+            </button>
     </div>
 </form>
 
@@ -118,59 +123,120 @@
     document.addEventListener('livewire:init', () => {
         // For Livewire 2.x use: document.addEventListener('livewire:load', () => {
 
-        const editorInstance = new FroalaEditor('#content_editor', { // Use the ID of your textarea
-            // Your Froala options here. For example:
-            // toolbarButtons: ['bold', 'italic', 'underline', '|', 'formatUL', 'formatOL']
-            events: {
-                // Sync content to Livewire
-                'contentChanged': function () {
-                    // 'this' refers to the Froala Editor instance
-                    // Use @this.set('propertyName', value) to update Livewire property
-                    @this.set('content', this.html.get());
-                },
-                // Optional: If you need to set initial content from Livewire (e.g., for an edit form)
-                // 'initialized': function () {
-                //    this.html.set(@json($this->content ?? ''));
-                // }
-            }
-        });
+        // Declare editorInstance outside so it can be accessed by Livewire.on if needed
+        let editorInstance;
 
-         Livewire.on('clearFroalaContent', () => {
+        // Function to initialize or re-initialize Froala
+        function initFroalaEditor(initialContent) {
+            // If an instance already exists, destroy it first
+            if (editorInstance && typeof editorInstance.destroy === 'function') {
+                editorInstance.destroy();
+            }
+
+            editorInstance = new FroalaEditor('#content_editor', { // Use the ID of your textarea
+                // Your Froala options here. For example:
+                // toolbarButtons: ['bold', 'italic', 'underline', '|', 'formatUL', 'formatOL']
+                // Set the initial content when Froala is ready
+                html: initialContent, // <-- Set initial content directly if supported by Froala option
+                                      // Alternatively, use the 'initialized' event below.
+                                      // Check Froala docs for the best way to pass initial content at construction.
+
+                events: {
+                    // Sync content to Livewire when it changes in Froala
+                    'contentChanged': function () {
+                        // 'this' refers to the Froala Editor instance
+                        // Use @this.set('propertyName', value) to update Livewire property
+                        // Use {defer: true} for better performance if you don't need instant updates
+                        @this.set('content', this.html.get());
+                    },
+
+                    // This event fires after the editor is fully initialized.
+                    // This is where you ensure Livewire's initial data is loaded into the editor.
+                    'initialized': function () {
+                        // If the 'html' option above didn't work or you prefer this way:
+                        // 'this' refers to the Froala Editor instance
+                        // @json($this->content) will take the PHP variable $this->content
+                        // from your Livewire component, JSON encode it, and output it
+                        // as a JavaScript string.
+                        // The '?? ""' ensures that if $this->content is null, it defaults to an empty string.
+                        this.html.set(@json($this->content ?? ''));
+                    }
+                }
+            });
+        }
+
+        // Initialize Froala with the current content from Livewire.
+        // This ensures that if the component re-renders for some reason (though wire:ignore should prevent it for the editor itself),
+        // or if this script runs slightly after Livewire has set its initial state,
+        // the editor gets the correct content.
+        initFroalaEditor(@json($this->content ?? ''));
+
+
+        // Listener to clear Froala content if dispatched from Livewire
+        Livewire.on('clearFroalaContent', () => {
             if (editorInstance && typeof editorInstance.html !== 'undefined' && typeof editorInstance.html.set === 'function') {
                 editorInstance.html.set(''); // Use Froala API to clear content
             }
         });
+
+        // Optional: If you ever need to programmatically re-set the content from Livewire after initial load,
+        // you could dispatch an event from Livewire and listen for it here.
+        // Example: Livewire.on('setFroalaContent', (newContent) => { ... editorInstance.html.set(newContent) ... });
+        // Make sure your Livewire component PHP file correctly populates `$this->content`
+        // in its `mount()` method or when the property is set. For example:
+        //
+        // public function mount($postId) {
+        //     $post = Post::find($postId);
+        //     $this->content = $post->content; // This value will be used by @json($this->content)
+        //     // ... other properties
+        // }
     });
 </script> --}}
 <script>
     document.addEventListener('livewire:init', () => {
-        const editorInstance = new FroalaEditor('#content_editor', {
-            toolbarButtons: [
-                'bold', 'italic', 'underline', '|',
-                'paragraphFormat', 'align', 'formatOL', 'formatUL', '|',
-                'insertImage', 'insertLink', 'insertTable', '|',
-                'undo', 'redo'
-            ],
-            // Image upload configuration
-            imageUploadURL: '{{ route("admin.upload.image") }}', // Use Laravel route helper
-            imageUploadParams: {
-                _token: '{{ csrf_token() }}' // CSRF token
-            },
-            imageUploadMethod: 'POST',
-            imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif'],
-            imageMaxSize: 5 * 1024 * 1024, // 5MB max size
-            events: {
-                'contentChanged': function () {
-                    @this.set('content', this.html.get());
-                },
-                'image.uploaded': function (response) {
-                    console.log('Image uploaded successfully:', JSON.parse(response).link);
-                },
-                'image.error': function (error, response) {
-                    console.error('Image upload error:', error, response);
-                }
+        let editorInstance;
+
+        function initFroalaEditor(initialContent) {
+            if (editorInstance && typeof editorInstance.destroy === 'function') {
+                editorInstance.destroy();
             }
-        });
+
+            editorInstance = new FroalaEditor('#content_editor', {
+                toolbarButtons: [
+                    'bold', 'italic', 'underline', '|',
+                    'paragraphFormat', 'align', 'formatOL', 'formatUL', '|',
+                    'insertImage', 'insertLink', 'insertTable', '|',
+                    'undo', 'redo'
+                ],
+                // Image upload configuration
+                imageUploadURL: '{{ route("admin.upload.image") }}',
+                imageUploadParams: {
+                    _token: '{{ csrf_token() }}'
+                },
+                imageUploadMethod: 'POST',
+                imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif'],
+                imageMaxSize: 5 * 1024 * 1024, // 5MB max
+                imageAllowBase64: false, // Prevent base64 images
+                events: {
+                    'contentChanged': function () {
+                        console.log('Editor content:', this.html.get());
+                        @this.set('content', this.html.get());
+                    },
+                    'initialized': function () {
+                        this.html.set(@json($this->content ?? ''));
+                    },
+                    'image.uploaded': function (response) {
+                        console.log('Image uploaded successfully:', JSON.parse(response).link);
+                    },
+                    'image.error': function (error, response) {
+                        console.error('Image upload error:', error, response);
+                    }
+                }
+            });
+        }
+
+        // Initialize Froala with initial content from Livewire
+        initFroalaEditor(@json($this->content ?? ''));
 
         Livewire.on('clearFroalaContent', () => {
             if (editorInstance && typeof editorInstance.html !== 'undefined' && typeof editorInstance.html.set === 'function') {

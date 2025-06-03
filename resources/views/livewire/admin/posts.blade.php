@@ -69,10 +69,10 @@
                             @endif
                         </td>
                         <td class="d-flex gap-3 align-items-center">
-                            <a href="#" class="btn btn-primary">
+                            <a href="{{ route('admin.posts.edit', $post->slug) }}" class="btn btn-primary">
                                 <i class="icon-copy dw dw-edit2 mr-2"></i> Edit
                             </a>
-                            <a href="#" class="btn btn-danger ml-2">
+                            <a href="javascript:;" wire:click="deletePost({{ $post->id }})" class="btn btn-danger ml-2">
                                 <i class="icon-copy dw dw-delete-3 mr-2"></i> Delete
                             </a>
                         </td>
@@ -89,3 +89,33 @@
         </div>
     </div>
 </div>
+@push('scripts')
+<script>
+     window.addEventListener("deletePost", function (event) {
+        console.log('Event received:', event);
+        console.log('Event detail:', event.detail);
+        var id = event.detail[0]; // Extract scalar id
+       
+
+        Swal.fire({
+            title: 'Confirm Deletion',
+            text: `Are you sure you want to delete the post with ID ${id}?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Delete',
+            cancelButtonText: 'Cancel',
+            position: 'top',
+            backdrop: true,
+            allowOutsideClick: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log('Dispatching performDeleteCategory with id:', id);
+                Livewire.dispatch('performDeletePost', { id: id }); // Use named parameter
+            }
+        });
+    });
+</script>
+    
+@endpush

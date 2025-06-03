@@ -52,6 +52,10 @@ Route::post('/reset-password', 'resetPasswordHandler')->name('reset.password.han
             Route::get('/posts/new','addPost')->name('posts.create');
             Route::post('/posts/new','storePost')->name('posts.store');
             Route::get('/posts','postsView')->name('posts.index');
+            Route::get('/posts/{post:slug}/edit','editPost')->name('posts.edit');
+            Route::post('/posts/{post:slug}/edit','updatePost')->name('posts.update');
+            Route::get('/posts/{post:slug}/delete','deletePost')->name('posts.delete');
+            Route::post('/upload-image',  'uploadFroalaImage')->name('upload.image');
         });
     });
 });
