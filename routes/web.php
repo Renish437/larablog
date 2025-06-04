@@ -2,13 +2,21 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/home', [HomeController::class, 'my_home'])->name('my-home');
+Route::get('/category/1', [HomeController::class, 'category'])->name('category');
+Route::get('/about-us',[HomeController::class,'aboutUs'])->name('about');
+Route::get('/author/1', [HomeController::class, 'author'])->name('author');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
+Route::get('/blogs', [HomeController::class, 'blogs'])->name('blogs');
+Route::get('blog/1', [HomeController::class, 'blog'])->name('blog');
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::fallback([HomeController::class,'notFound'])->name('404');
 
 Route::view('example-page', 'example-page');
 Route::view('example-auth', 'example-auth');
@@ -59,3 +67,5 @@ Route::post('/reset-password', 'resetPasswordHandler')->name('reset.password.han
         });
     });
 });
+
+
