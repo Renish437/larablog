@@ -14,7 +14,7 @@
             <!-- blog item -->
             <div class="group">
               <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
-                <img src="images/blog-01.png" alt="image" class="w-full">
+                <img src="{{ asset('front/images/blog-01.png') }}" alt="image" class="w-full">
               </div>
 
               <h4>
@@ -33,7 +33,7 @@
                 <div class="flex items-center gap-2.5">
                   <div class="flex items-center gap-3">
                     <div class="flex w-6 h-6 rounded-full overflow-hidden">
-                      <img src="images/user-01.png" alt="user">
+                      <img src="{{ asset('front/images/user-01.png') }}" alt="user">
                     </div>
                     <p class="text-sm">Adrio Devid</p>
                   </div>
@@ -49,7 +49,7 @@
             <!-- blog item -->
             <div class="group">
               <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
-                <img src="images/blog-10.png" alt="image" class="w-full">
+                <img src="{{ asset('front/images/blog-10.png') }}" alt="image" class="w-full">
               </div>
 
               <h4>
@@ -68,7 +68,7 @@
                 <div class="flex items-center gap-2.5">
                   <div class="flex items-center gap-3">
                     <div class="flex w-6 h-6 rounded-full overflow-hidden">
-                      <img src="images/user-01.png" alt="user">
+                      <img src="{{ asset('front/images/user-01.png') }}" alt="user">
                     </div>
                     <p class="text-sm">Adrio Devid</p>
                   </div>
@@ -84,7 +84,7 @@
             <!-- blog item -->
             <div class="group">
               <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
-                <img src="images/blog-05.png" alt="image" class="w-full">
+                <img src="{{ asset('front/images/blog-05.png') }}" alt="image" class="w-full">
               </div>
 
               <h4>
@@ -103,7 +103,7 @@
                 <div class="flex items-center gap-2.5">
                   <div class="flex items-center gap-3">
                     <div class="flex w-6 h-6 rounded-full overflow-hidden">
-                      <img src="images/user-01.png" alt="user">
+                      <img src="{{ asset('front/images/user-01.png') }}" alt="user">
                     </div>
                     <p class="text-sm">Adrio Devid</p>
                   </div>
@@ -119,7 +119,7 @@
             <!-- blog item -->
             <div class="group">
               <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
-                <img src="images/blog-09.png" alt="image" class="w-full">
+                <img src="{{ asset('front/images/blog-09.png') }}" alt="image" class="w-full">
               </div>
 
               <h4>
@@ -138,7 +138,7 @@
                 <div class="flex items-center gap-2.5">
                   <div class="flex items-center gap-3">
                     <div class="flex w-6 h-6 rounded-full overflow-hidden">
-                      <img src="images/user-01.png" alt="user">
+                      <img src="{{ asset('front/images/user-01.png') }}" alt="user">
                     </div>
                     <p class="text-sm">Adrio Devid</p>
                   </div>
@@ -154,7 +154,7 @@
             <!-- blog item -->
             <div class="group">
               <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
-                <img src="images/blog-02.png" alt="image" class="w-full">
+                <img src="{{ asset('front/images/blog-02.png') }}" alt="image" class="w-full">
               </div>
 
               <h4>
@@ -173,7 +173,7 @@
                 <div class="flex items-center gap-2.5">
                   <div class="flex items-center gap-3">
                     <div class="flex w-6 h-6 rounded-full overflow-hidden">
-                      <img src="images/user-01.png" alt="user">
+                      <img src="{{ asset('front/images/user-01.png') }}" alt="user">
                     </div>
                     <p class="text-sm">Adrio Devid</p>
                   </div>
@@ -189,7 +189,7 @@
             <!-- blog item -->
             <div class="group">
               <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
-                <img src="images/blog-06.png" alt="image" class="w-full">
+                <img src="{{ asset('front/images/blog-06.png') }}" alt="image" class="w-full">
               </div>
 
               <h4>
@@ -208,7 +208,7 @@
                 <div class="flex items-center gap-2.5">
                   <div class="flex items-center gap-3">
                     <div class="flex w-6 h-6 rounded-full overflow-hidden">
-                      <img src="images/user-01.png" alt="user">
+                      <img src="{{ asset('front/images/user-01.png') }}" alt="user">
                     </div>
                     <p class="text-sm">Adrio Devid</p>
                   </div>
@@ -224,7 +224,7 @@
             <!-- blog item -->
             <div class="group">
               <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
-                <img src="images/blog-11.png" alt="image" class="w-full">
+                <img src="{{ asset('front/images/blog-11.png') }}" alt="image" class="w-full">
               </div>
 
               <h4>
@@ -243,7 +243,7 @@
                 <div class="flex items-center gap-2.5">
                   <div class="flex items-center gap-3">
                     <div class="flex w-6 h-6 rounded-full overflow-hidden">
-                      <img src="images/user-01.png" alt="user">
+                      <img src="{{ asset('front/images/user-01.png') }}" alt="user">
                     </div>
                     <p class="text-sm">Adrio Devid</p>
                   </div>
@@ -259,7 +259,7 @@
             <!-- blog item -->
             <div class="group">
               <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
-                <img src="images/blog-07.png" alt="image" class="w-full">
+                <img src="{{ asset('front/images/blog-07.png') }}" alt="image" class="w-full">
               </div>
 
               <h4>
@@ -278,7 +278,7 @@
                 <div class="flex items-center gap-2.5">
                   <div class="flex items-center gap-3">
                     <div class="flex w-6 h-6 rounded-full overflow-hidden">
-                      <img src="images/user-01.png" alt="user">
+                      <img src="{{ asset('front/images/user-01.png') }}" alt="user">
                     </div>
                     <p class="text-sm">Adrio Devid</p>
                   </div>
@@ -294,7 +294,7 @@
             <!-- blog item -->
             <div class="group">
               <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
-                <img src="images/blog-04.png" alt="image" class="w-full">
+                <img src="{{ asset('front/images/blog-04.png') }}" alt="image" class="w-full">
               </div>
 
               <h4>
@@ -313,7 +313,7 @@
                 <div class="flex items-center gap-2.5">
                   <div class="flex items-center gap-3">
                     <div class="flex w-6 h-6 rounded-full overflow-hidden">
-                      <img src="images/user-01.png" alt="user">
+                      <img src="{{ asset('front/images/user-01.png') }}" alt="user">
                     </div>
                     <p class="text-sm">Adrio Devid</p>
                   </div>
@@ -329,7 +329,7 @@
             <!-- blog item -->
             <div class="group">
               <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
-                <img src="images/blog-08.png" alt="image" class="w-full">
+                <img src="{{ asset('front/images/blog-08.png') }}" alt="image" class="w-full">
               </div>
 
               <h4>
@@ -348,7 +348,7 @@
                 <div class="flex items-center gap-2.5">
                   <div class="flex items-center gap-3">
                     <div class="flex w-6 h-6 rounded-full overflow-hidden">
-                      <img src="images/user-01.png" alt="user">
+                      <img src="{{ asset('front/images/user-01.png') }}" alt="user">
                     </div>
                     <p class="text-sm">Adrio Devid</p>
                   </div>
@@ -364,7 +364,7 @@
             <!-- blog item -->
             <div class="group">
               <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
-                <img src="images/blog-03.png" alt="image" class="w-full">
+                <img src="{{ asset('front/images/blog-03.png') }}" alt="image" class="w-full">
               </div>
 
               <h4>
@@ -383,7 +383,7 @@
                 <div class="flex items-center gap-2.5">
                   <div class="flex items-center gap-3">
                     <div class="flex w-6 h-6 rounded-full overflow-hidden">
-                      <img src="images/user-01.png" alt="user">
+                      <img src="{{ asset('front/images/user-01.png') }}" alt="user">
                     </div>
                     <p class="text-sm">Adrio Devid</p>
                   </div>
@@ -399,7 +399,7 @@
             <!-- blog item -->
             <div class="group">
               <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
-                <img src="images/blog-12.png" alt="image" class="w-full">
+                <img src="{{ asset('front/images/blog-11.png') }}" alt="image" class="w-full">
               </div>
 
               <h4>
@@ -418,7 +418,7 @@
                 <div class="flex items-center gap-2.5">
                   <div class="flex items-center gap-3">
                     <div class="flex w-6 h-6 rounded-full overflow-hidden">
-                      <img src="images/user-01.png" alt="user">
+                      <img src="{{ asset('front/images/user-01.png') }}" alt="user">
                     </div>
                     <p class="text-sm">Adrio Devid</p>
                   </div>

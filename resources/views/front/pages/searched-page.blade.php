@@ -59,7 +59,7 @@
 
                   <p class="text-sm">Sep 10, 2025</p>
                 </div>
-                <a href="{{route('category')}}" class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
+                <a href="#" class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
               </div>
             </div>
 
@@ -96,7 +96,7 @@
 
                   <p class="text-sm">Sep 10, 2025</p>
                 </div>
-                <a href="{{route('category')}}" class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
+                <a href="#" class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
               </div>
             </div>
 
@@ -133,7 +133,7 @@
 
                   <p class="text-sm">Sep 10, 2025</p>
                 </div>
-                <a href="{{route('category')}}" class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
+                <a href="#" class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
               </div>
             </div>
 
@@ -170,7 +170,7 @@
 
                   <p class="text-sm">Sep 10, 2025</p>
                 </div>
-                <a href="{{route('category')}}" class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
+                <a href="#" class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
               </div>
             </div>
           </div>

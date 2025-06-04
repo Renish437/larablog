@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="lg:max-w-[540px] w-full">
-                        <a href="{{route('category')}}"
+                        <a href="#"
                             class="inline-flex text-purple-dark bg-purple/[0.08] font-medium text-sm py-1 px-3 rounded-full mb-4">Lifestyle</a>
                         <h1 class="font-bold text-custom-4 xl:text-heading-4 text-dark mb-4">
                             <a href="{{route('blog')}}">
@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="lg:max-w-[272px] w-full">
-                        <a href="{{route('category')}}"
+                        <a href="#"
                             class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full mb-4">Technology</a>
                         <h2 class="font-semibold text-custom-lg text-dark mb-3">
                             <a href="{{route('blog')}}">
@@ -91,7 +91,7 @@
                     </div>
 
                     <div class="lg:max-w-[272px] w-full">
-                        <a href="{{route('category')}}"
+                        <a href="#"
                             class="inline-flex text-green-dark bg-green/[0.08] font-medium text-sm py-1 px-3 rounded-full mb-4">Travel</a>
                         <h2 class="font-semibold text-custom-lg text-dark mb-3">
                             <a href="{{route('blog')}}">
@@ -202,7 +202,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
                                 </div>
                             </div>
@@ -241,7 +241,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
                                 </div>
                             </div>
@@ -280,7 +280,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
                                 </div>
                             </div>
@@ -319,7 +319,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-purple-dark bg-purple/[0.08] font-medium text-sm py-1 px-3 rounded-full">Lifestyle</a>
                                 </div>
                             </div>
@@ -358,7 +358,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-green-dark bg-green/[0.08] font-medium text-sm py-1 px-3 rounded-full">Travel</a>
                                 </div>
                             </div>
@@ -397,7 +397,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-green-dark bg-green/[0.08] font-medium text-sm py-1 px-3 rounded-full">Travel</a>
                                 </div>
                             </div>
@@ -442,7 +442,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
                                 </div>
                             </div>
@@ -481,7 +481,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
                                 </div>
                             </div>
@@ -520,7 +520,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
                                 </div>
                             </div>
@@ -565,7 +565,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-purple-dark bg-purple/[0.08] font-medium text-sm py-1 px-3 rounded-full">Lifestyle</a>
                                 </div>
                             </div>
@@ -610,7 +610,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-green-dark bg-green/[0.08] font-medium text-sm py-1 px-3 rounded-full">Travel</a>
                                 </div>
                             </div>
@@ -649,7 +649,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-green-dark bg-green/[0.08] font-medium text-sm py-1 px-3 rounded-full">Travel</a>
                                 </div>
                             </div>
@@ -688,7 +688,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-green-dark bg-green/[0.08] font-medium text-sm py-1 px-3 rounded-full">Travel</a>
                                 </div>
                             </div>
@@ -727,7 +727,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-green-dark bg-green/[0.08] font-medium text-sm py-1 px-3 rounded-full">Travel</a>
                                 </div>
                             </div>
@@ -772,7 +772,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-teal-dark bg-teal/[0.08] font-medium text-sm py-1 px-3 rounded-full">Health</a>
                                 </div>
                             </div>
@@ -817,7 +817,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-cyan-dark bg-cyan/[0.08] font-medium text-sm py-1 px-3 rounded-full">Culture</a>
                                 </div>
                             </div>
@@ -856,7 +856,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-cyan-dark bg-cyan/[0.08] font-medium text-sm py-1 px-3 rounded-full">Culture</a>
                                 </div>
                             </div>
@@ -895,7 +895,7 @@
 
                                         <p class="text-sm">Sep 10, 2025</p>
                                     </div>
-                                    <a href="{{route('category')}}"
+                                    <a href="#"
                                         class="inline-flex text-cyan-dark bg-cyan/[0.08] font-medium text-sm py-1 px-3 rounded-full">Culture</a>
                                 </div>
                             </div>

@@ -214,35 +214,35 @@
 														<div class="col-md-6">
 															<div class="mb-3">
 																<label for="">Facebook</label>
-																<input type="text" class="form-control" wire:model="facebook" placeholder="Enter your facebook link">
+																<input type="url" class="form-control" wire:model="facebook" placeholder="Enter your facebook link">
 																@error('facebook') <span class="text-danger">{{ $message }}</span> @enderror
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="mb-3">
 																<label for="">Instagram</label>
-																<input type="text" class="form-control" wire:model="instagram" placeholder="Enter your instagram link">
+																<input type="url" class="form-control" wire:model="instagram" placeholder="Enter your instagram link">
 																@error('instagram') <span class="text-danger">{{ $message }}</span> @enderror
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="mb-3">
 																<label for="">YouTube</label>
-																<input type="text" class="form-control" wire:model="youtube" placeholder="Enter your youtube link">
+																<input type="url" class="form-control" wire:model="youtube" placeholder="Enter your youtube link">
 																@error('youtube') <span class="text-danger">{{ $message }}</span> @enderror
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="mb-3">
 																<label for="">Linkedin</label>
-																<input type="text" class="form-control" wire:model="linkedin" placeholder="Enter your linkedin link">
+																<input type="url" class="form-control" wire:model="linkedin" placeholder="Enter your linkedin link">
 																@error('linkedin') <span class="text-danger">{{ $message }}</span> @enderror
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="mb-3">
 																<label for="">Twitter</label>
-																<input type="text" class="form-control" wire:model="twitter" placeholder="Enter your twitter link">
+																<input type="url" class="form-control" wire:model="twitter" placeholder="Enter your twitter link">
 																@error('twitter') <span class="text-danger">{{ $message }}</span> @enderror
 															</div>
 														</div>
@@ -250,7 +250,7 @@
 														<div class="col-md-6">
 															<div class="mb-3">
 																<label for="">Github</label>
-																<input type="text" class="form-control" wire:model="github" placeholder="Enter your github link">
+																<input type="url" class="form-control" wire:model="github" placeholder="Enter your github link">
 																@error('github') <span class="text-danger">{{ $message }}</span> @enderror
 															</div>
 														</div>

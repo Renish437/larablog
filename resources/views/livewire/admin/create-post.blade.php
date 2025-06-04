@@ -145,12 +145,12 @@
 <script>
     document.addEventListener('livewire:init', () => {
         const editorInstance = new FroalaEditor('#content_editor', {
-            toolbarButtons: [
-                'bold', 'italic', 'underline', '|',
-                'paragraphFormat', 'align', 'formatOL', 'formatUL', '|',
-                'insertImage', 'insertLink', 'insertTable', '|',
-                'undo', 'redo'
-            ],
+            // toolbarButtons: [
+            //     'bold', 'italic', 'underline', '|',
+            //     'paragraphFormat', 'align', 'formatOL', 'formatUL', '|',
+            //     'insertImage', 'insertLink', 'insertTable', '|',
+            //     'undo', 'redo'
+            // ],
             // Image upload configuration
             imageUploadURL: '{{ route("admin.upload.image") }}', // Use Laravel route helper
             imageUploadParams: {

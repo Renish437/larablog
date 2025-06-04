@@ -150,7 +150,7 @@
                             </div>
 
                             <div class="max-w-[540px] w-full">
-                                <a href="{{route('category')}}"
+                                <a href="#"
                                     class="inline-flex text-blue bg-blue/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">Technology</a>
 
                                 <h4 class="mt-3.5 mb-4">
@@ -188,7 +188,7 @@
                             </div>
 
                             <div class="max-w-[540px] w-full">
-                                <a href="{{route('category')}}"
+                                <a href="#"
                                     class="inline-flex text-green-dark bg-green/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">Travel</a>
 
                                 <h4 class="mt-3.5 mb-4">
@@ -225,7 +225,7 @@
                             </div>
 
                             <div class="max-w-[540px] w-full">
-                                <a href="{{route('category')}}"
+                                <a href="#"
                                     class="inline-flex text-purple-dark bg-purple/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">Lifestyle</a>
 
                                 <h4 class="mt-3.5 mb-4">
@@ -262,7 +262,7 @@
                             </div>
 
                             <div class="max-w-[540px] w-full">
-                                <a href="{{route('category')}}"
+                                <a href="#"
                                     class="inline-flex text-cyan-dark bg-cyan/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">Culture</a>
 
                                 <h4 class="mt-3.5 mb-4">
@@ -299,7 +299,7 @@
                             </div>
 
                             <div class="max-w-[540px] w-full">
-                                <a href="{{route('category')}}"
+                                <a href="#"
                                     class="inline-flex text-green-dark bg-green/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">Travel</a>
 
                                 <h4 class="mt-3.5 mb-4">
@@ -336,7 +336,7 @@
                             </div>
 
                             <div class="max-w-[540px] w-full">
-                                <a href="{{route('category')}}"
+                                <a href="#"
                                     class="inline-flex text-teal-dark bg-teal/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">Health</a>
 
                                 <h4 class="mt-3.5 mb-4">
@@ -373,7 +373,7 @@
                             </div>
 
                             <div class="max-w-[540px] w-full">
-                                <a href="{{route('category')}}"
+                                <a href="#"
                                     class="inline-flex text-blue bg-blue/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">Technology</a>
 
                                 <h4 class="mt-3.5 mb-4">

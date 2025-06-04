@@ -147,7 +147,9 @@
           />
 
           <button
+          type="button"
             @click="modalSearch = false"
+            aria-label="button for modal close"
             class="absolute top-4.5 right-7 flex items-center justify-center w-9 h-9 rounded-full ease-in duration-150 hover:text-dark hover:bg-gray-2"
           >
             <svg

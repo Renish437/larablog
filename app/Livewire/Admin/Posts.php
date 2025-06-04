@@ -14,7 +14,7 @@ use Livewire\WithPagination;
 
 class Posts extends Component
 {use WithPagination;
-    public $perPage = 2;
+    public $perPage = 5;
     public $categories_html;
 
 

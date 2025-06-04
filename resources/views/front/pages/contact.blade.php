@@ -1,7 +1,7 @@
 <x-front-layout title="Contact">
 <body class="bg-gray font-inter text-body">
 
-    <section class="py-12 lg:py-32">
+    <section class="py-12 lg:py-16">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1170px]">
             <div class="text-center mb-10 lg:mb-12">
                 <h1 class="text-heading-3 sm:text-heading-2 text-dark font-semibold mb-3">Get in Touch</h1>

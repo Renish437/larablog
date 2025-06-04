@@ -1080,9 +1080,77 @@
   .overflow-hidden {
     overflow: hidden;
   }
+
+
+
+
   .overflow-y-scroll {
     overflow-y: scroll;
   }
+/* Hide horizontal scrollbar while keeping x-axis scrolling */
+.overflow-x-scroll {
+    overflow-x: auto; /* Changed to auto for better compatibility */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
+    scrollbar-width: none; /* Firefox: hide scrollbar */
+    -ms-overflow-style: none; /* IE/Edge: hide scrollbar */
+}
+
+/* WebKit browsers: hide scrollbar */
+.overflow-x-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* Navigation styles */
+nav.overflow-x-scroll {
+    z-index: 10; /* Lower z-index for nav, below header (z-9999) */
+}
+
+/* Dropdown styles */
+.dropdown {
+    display: none;
+    position: absolute; /* Position outside overflow constraints */
+    top: 100%; /* Align below parent */
+    left: 0;
+    min-width: 200px; /* Ensure sufficient width */
+    z-index: 20; /* Above nav (z-10) but below modals (e.g., z-50) */
+   
+}
+
+/* Show dropdown when active */
+.dropdown.flex {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensure dropdown visibility on mobile */
+@media (max-width: 1023px) {
+    .dropdown {
+        position: static; /* On mobile, dropdowns stay within flow */
+        min-width: auto;
+        margin-top: 0.5rem;
+        margin-left: 1rem;
+    }
+}
+
+/* Remove vertical scrollbar and max-height constraints */
+.nav-container {
+    overflow-y: visible; /* Hide vertical scrollbar */
+  
+    height: auto; /* Override h-0 */
+}
+@media (min-width: 1024px) {
+    .lg\:py-6\.5 {
+        padding-top: 1.625rem;
+        padding-bottom: 1.625rem;
+    }
+    .lg\:py-4 {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+}
+.whitespace-nowrap {
+    white-space: nowrap;
+}
   .rounded-2xl {
     border-radius: var(--radius-2xl);
   }

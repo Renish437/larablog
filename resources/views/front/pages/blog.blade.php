@@ -28,7 +28,7 @@
                     <p class="text-custom-sm">12 min read</p>
                   </div>
 
-                  <a href="{{route('category')}}" class="inline-flex text-teal-dark bg-teal/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">
+                  <a href="#" class="inline-flex text-teal-dark bg-teal/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">
                     Health
                   </a>
                 </div>
@@ -176,13 +176,13 @@
                 <ul class="flex items-center gap-3">
                   <li class="text-body">Tags:</li>
                   <li class="duration-200 ease-in text-dark hover:text-primary">
-                    <a href="{{route('category')}}">#travel</a>
+                    <a href="#">#travel</a>
                   </li>
                   <li class="duration-200 ease-in text-dark hover:text-primary">
-                    <a href="{{route('category')}}">#health</a>
+                    <a href="#">#health</a>
                   </li>
                   <li class="duration-200 ease-in text-dark hover:text-primary">
-                    <a href="{{route('category')}}">#technology</a>
+                    <a href="#">#technology</a>
                   </li>
                 </ul>
 

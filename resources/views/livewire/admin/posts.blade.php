@@ -85,7 +85,7 @@
             </tbody>
         </table>
         <div>
-            {{ $posts->links('livewire::simple-bootstrap') }}
+            {{ $posts->links('livewire::bootstrap') }}
         </div>
     </div>
 </div>

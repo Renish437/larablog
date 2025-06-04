@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\BaseController;
-
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class HomeController extends BaseController
@@ -17,9 +17,10 @@ class HomeController extends BaseController
     {
         return view('front.pages.my-home');
     }
-    public function category()
+    public function category($slug)
     {
-        return view('front.pages.category');
+        $category = Category::where('slug', $slug)->first();
+        return view('front.pages.category',compact('category'));
     }
     public function aboutUs()
     {
@@ -42,9 +43,12 @@ class HomeController extends BaseController
         return view('front.pages.blog');
     }
     public function notFound(){
-        return view('front.pages.404');
+        return view('front.pages.not-found');
     }
     public function contact(){
         return view('front.pages.contact');
+    }
+    public function privacyPolicy(){
+        return view('front.pages.privacy-policy');
     }
 }
