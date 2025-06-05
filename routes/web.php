@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',[HomeController::class,'index'])->name('home');
-Route::get('/home', [HomeController::class, 'my_home'])->name('my-home');
+Route::middleware(['auth'])->get('/home', [HomeController::class, 'my_home'])->name('my-home');
 Route::get('/category/{slug}', [HomeController::class, 'category'])->name('category.show');
 Route::get('/about-us',[HomeController::class,'aboutUs'])->name('about');
-Route::get('/author/1', [HomeController::class, 'author'])->name('author');
+Route::get('/author/{id}', [HomeController::class, 'author'])->name('author');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::get('/blogs', [HomeController::class, 'blogs'])->name('blogs');
 Route::get('blog/{slug}', [HomeController::class, 'blog'])->name('blog');

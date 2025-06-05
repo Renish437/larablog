@@ -24,7 +24,7 @@ class Post extends Model
                 'meta_keywords',
                 'meta_description',
                 'visibility',
-                'thumbnail',
+              'thumbnail',
             ];
             public function sluggable(): array
     {
@@ -34,19 +34,20 @@ class Post extends Model
             ]
         ];
     }
-   public function getImageThumbAttribute(): string
-{
-    if ($this->featured_image) {
-        // $filename = pathinfo($this->featured_image, PATHINFO_FILENAME);
-        // $extension = pathinfo($this->featured_image, PATHINFO_EXTENSION);
-        // $thumbnailPath = "posts/thumbnails/{$filename}_thumb.{$extension}";
-        // return asset('storage/' . $thumbnailPath);
-        return asset(Storage::url($this->featured_image));
+    public function getReadingTime($content){
+        $words = str_word_count($content);
+        $minutes = ceil($words / 200);
+        return $minutes;
     }
+   // CORRECTED ACCESSOR FOR THE THUMBNAIL
+   public function getThumbnailUrlAttribute(): string
+    {
+        if ($this->thumbnail && Storage::disk('public')->exists($this->thumbnail)) {
+            return Storage::disk('public')->url($this->thumbnail);
+        }
 
-    return asset('images/default-placeholder.png');
-}
-
+        return asset('images/default-placeholder.png');
+    }
     // If you also want to easily get the original image URL:
     public function getImageAttribute(): string
     {
@@ -63,7 +64,10 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
-  
+  public function getImageThumbAttribute(): string
+    {
+        return $this->thumbnail; // Maintain compatibility with previous code
+    }
 //     public static function search($search)
 // {
 //     return empty($search) ? static::query() : static::query()
@@ -79,6 +83,6 @@ public static function search($search)
         ->orWhere('tags', 'like', '%' . $search . '%');
     }
     public function tags(){
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class,'post_tag');
     }
 }

@@ -30,6 +30,9 @@ class BaseController extends Controller
            $posts = Post::where('visibility',1)->with('category')->orderBy('created_at','DESC')->get();
           
            $authors = User::whereHas('posts')->with('posts')->get();
+
+           
+           
           View::share([
             'setting' => $setting,
             'pcategories' => $pcategories,

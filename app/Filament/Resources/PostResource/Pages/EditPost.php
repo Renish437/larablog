@@ -16,13 +16,9 @@ class EditPost extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
-    protected function mutateFormDataBeforeSave(array $data): array
+  protected function getRedirectUrl(): string
 {
-   
-    if (isset($data['thumbnail_path'])) {
-        $data['thumbnail'] = $data['thumbnail_path'];
-        unset($data['thumbnail_path']);
-    }
-    return $data;
+    return $this->getResource()::getUrl('index');
 }
+
 }

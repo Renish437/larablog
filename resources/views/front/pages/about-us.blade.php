@@ -55,7 +55,7 @@
           <div class="pt-14 border-t border-gray-3">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-11 gap-x-7.5">
               <!-- Author Item -->
-              <a href="{{route('author')}}" class="group">
+              <a href="{{route('author',$author->id)}}" class="group">
                 <div class="border border-gray-3 rounded-[20px] bg-gray p-5 group-hover:bg-white group-hover:drop-shadow-1 group-hover:-translate-y-2 transition-all">
                   <div class="flex flex-wrap items-center gap-8">
                     <div class="w-25 h-25 rounded-full overflow-hidden">
@@ -80,7 +80,7 @@
               </a>
 
               <!-- Author Item -->
-              <a href="{{route('author')}}" class="group">
+              <a href="{{route('author',$author->id)}}" class="group">
                 <div class="border border-gray-3 rounded-[20px] bg-gray p-5 group-hover:bg-white group-hover:drop-shadow-1 group-hover:-translate-y-2 transition-all">
                   <div class="flex flex-wrap items-center gap-8">
                     <div class="w-25 h-25 rounded-full overflow-hidden">
@@ -105,7 +105,7 @@
               </a>
 
               <!-- Author Item -->
-              <a href="{{route('author')}}" class="group">
+              <a href="{{route('author',$author->id)}}" class="group">
                 <div class="border border-gray-3 rounded-[20px] bg-gray p-5 group-hover:bg-white group-hover:drop-shadow-1 group-hover:-translate-y-2 transition-all">
                   <div class="flex flex-wrap items-center gap-8">
                     <div class="w-25 h-25 rounded-full overflow-hidden">

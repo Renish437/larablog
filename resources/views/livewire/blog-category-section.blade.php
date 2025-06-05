@@ -35,7 +35,7 @@
                             <div class="group">
                                 <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-102">
                                     <a href="{{ route('blog',$post->slug) }}">
-                                        <img src="{{ $post->image_thumb  }}"
+                                        <img src="{{ $post->thumbnail_url  }}"
                                             alt="{{ $post->title }}" class="w-full h-48 object-cover object-center" />
                                     </a>
                                 </div>
@@ -53,7 +53,7 @@
 
                                 <div class="flex flex-wrap gap-3 items-center justify-between mt-4.5">
                                     <div class="flex items-center gap-2.5">
-                                        <a href="{{ route('author') }}" class="flex items-center gap-3">
+                                        <a href="{{ route('author',$post->user->id) }}" class="flex items-center gap-3">
                                             <div class="flex w-6 h-6 rounded-full overflow-hidden">
                                                 <img src="{{ $post->user->picture }}" alt="{{ $post->user->name }}" />
                                             </div>
@@ -62,7 +62,7 @@
                                         <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
                                         <p class="text-sm">{{ $post->created_at->diffForHumans() }}</p>
                                     </div>
-                                    <a href="#"
+                                    <a href="{{ route('category.show', $post->category->slug) }}"
                                         class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">
                                         {{ $post->category->name ?? 'Uncategorized' }}
                                     </a>
@@ -81,7 +81,7 @@
                                 <div class="group">
                                     <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-102">
                                         <a href="{{ route('blog',$post->slug) }}">
-                                            <img  src="{{ $post->image_thumb  }}"
+                                            <img  src="{{ $post->thumbnail_url  }}"
                                                 alt="{{ $post->title }}" class="w-full h-48 object-cover object-center" />
                                         </a>
                                     </div>
@@ -99,7 +99,7 @@
 
                                     <div class="flex flex-wrap gap-3 items-center justify-between mt-4.5">
                                         <div class="flex items-center gap-2.5">
-                                            <a href="{{ route('author') }}" class="flex items-center gap-3">
+                                            <a href="{{ route('author',$post->user->id) }}" class="flex items-center gap-3">
                                                 <div class="flex w-6 h-6 rounded-full overflow-hidden">
                                                     <img src="{{ $post->user->picture }}" alt="{{ $post->user->name }}" />
                                                 </div>
@@ -108,7 +108,7 @@
                                             <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
                                             <p class="text-sm">{{ $post->created_at->diffForHumans() }}</p>
                                         </div>
-                                        <a href="#"
+                                        <a href="{{ route('category.show', $post->category->slug) }}"
                                             class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">
                                             {{ $post->category->name ?? 'Uncategorized' }}
                                         </a>

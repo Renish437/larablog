@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="lg:max-w-[540px] w-full">
-                            <a href="category.html"
+                            <a href="{{ route('category.show',$hero_item_one->category->slug) }}"
                                 class="inline-flex text-purple-dark bg-purple/[0.08] font-medium text-sm py-1 px-3 rounded-full mb-4">{{ $hero_item_one->category->name }}</a>
                             <h1 class="font-bold text-custom-4 xl:text-heading-4 text-dark mb-4">
                                 <a href="{{ route('blog',$hero_item_one->slug) }}">
@@ -38,7 +38,7 @@
                                 {!! Str::limit($hero_item_one->content, 200) !!}
                             </p>
                             <div class="flex items-center gap-2.5 mt-5">
-                                <a href="author.html" class="flex items-center gap-3">
+                                <a href="{{ route('author',$hero_item_one->user->id) }}" class="flex items-center gap-3">
                                     <div class="flex w-6 h-6 rounded-full overflow-hidden">
                                         <img src="{{ $hero_item_one->user->picture }}" alt="user">
                                     </div>
@@ -60,7 +60,7 @@
                             <div class=" sm:items-center gap-6 bg-white shadow-1 rounded-xl p-2.5">
                                 <div class="lg:max-w-[238px] h-[160px] w-full py-2">
                                     <a href="{{ route('blog',$hero_item->slug) }}">
-                                        <img class="w-full" src="{{ $hero_item->image_thumb }}" alt="hero">
+                                        <img class="w-full" src="{{ $hero_item->thumbnail_url }}" alt="hero">
                                     </a>
                                 </div>
 
@@ -74,7 +74,7 @@
                                     </h2>
                                     <div class="flex items-center gap-2.5">
                                         <p class="text-sm">
-                                            <a href="author.html">By {{ $hero_item->user->name }}</a>
+                                            <a href="{{ route('author',$hero_item->user->id) }}">By {{ $hero_item->user->name }}</a>
                                         </p>
 
                                         <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
@@ -130,7 +130,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-11 gap-x-7.5">
                         <!-- Author Item -->
                        @forelse ($authors as $author)
-                             <a href="{{ route('author') }}" class="group">
+                             <a href="{{ route('author',$author->id) }}" class="group">
                             <div
                                 class="border border-gray-3 rounded-[20px] bg-gray p-5 group-hover:bg-white group-hover:drop-shadow-1 group-hover:-translate-y-2 transition-all">
                                 <div class="flex flex-wrap items-center gap-8">
@@ -165,7 +165,7 @@
                        @endforelse
 
                         <!-- Author Item -->
-                        <a href="{{ route('author') }}" class="group">
+                        <a href="{{ route('author',$author->id) }}" class="group">
                             <div
                                 class="border border-gray-3 rounded-[20px] bg-gray p-5 group-hover:bg-white group-hover:drop-shadow-1 group-hover:-translate-y-2 transition-all">
                                 <div class="flex flex-wrap items-center gap-8">
@@ -197,7 +197,7 @@
                         </a>
 
                         <!-- Author Item -->
-                        <a href="{{ route('author') }}" class="group">
+                        <a href="{{ route('author',$author->id) }}" class="group">
                             <div
                                 class="border border-gray-3 rounded-[20px] bg-gray p-5 group-hover:bg-white group-hover:drop-shadow-1 group-hover:-translate-y-2 transition-all">
                                 <div class="flex flex-wrap items-center gap-8">

@@ -27,25 +27,22 @@
                                     class="max-w-[277px] w-full h-[277px] rounded-full flex items-center justify-center border border-gray-3">
                                     <div
                                         class="max-w-[165px] w-full h-[165px] shadow-img rounded-full overflow-hidden">
-                                        <img src="front/images/user-04.png" alt="user" />
+                                        <img src="{{ auth()->user()->picture }}" alt="user" />
                                     </div>
                                 </div>
 
                                 <div class="max-w-[593px] w-full">
                                     <h1
                                         class="text-2xl sm:text-4xl lg:text-heading-3 xl:text-heading-2 text-dark mb-3.5">
-                                        Hey! I’m <span class="font-bold"> Renish</span>
+                                        Hey! I’m <span class="font-bold"> {{ auth()->user()->name }} Renish</span>
                                     </h1>
                                     <p>
-                                        Breakfast procuring no end happiness allowance assurance
-                                        frank. Met simplicity nor difficulty unreserved who.
-                                        Entreaties mr conviction dissimilar me astonished estimating
-                                        cultivated.
+                                      {{ auth()->user()->bio }}
                                     </p>
 
                                     <!-- Social Links start -->
                                     <div class="flex items-center gap-5 mt-7">
-                                        <a href="personal-blog.html#"
+                                        <a href="{{ auth()->user()->twitter }}" target="_blank"
                                             class="flex lg:transition-all lg:ease-linear lg:duration-300 hover:text-dark">
                                             <svg class="fill-current" width="20" height="20"
                                                 viewBox="0 0 20 20" fill="none"
@@ -55,7 +52,7 @@
                                                     fill="" />
                                             </svg>
                                         </a>
-                                        <a href="personal-blog.html#"
+                                        <a href="{{ auth()->user()->facebook }}" target="_blank"
                                             class="flex lg:transition-all lg:ease-linear lg:duration-300 hover:text-dark">
                                             <svg class="fill-current" width="20" height="20"
                                                 viewBox="0 0 20 20" fill="none"
@@ -65,7 +62,7 @@
                                                     fill="" />
                                             </svg>
                                         </a>
-                                        <a href="personal-blog.html#"
+                                        <a href="{{ auth()->user()->linkedin }}" target="_blank"
                                             class="flex lg:transition-all lg:ease-linear lg:duration-300 hover:text-dark">
                                             <svg class="fill-current" width="20" height="20"
                                                 viewBox="0 0 20 20" fill="none"
@@ -75,24 +72,8 @@
                                                     fill="" />
                                             </svg>
                                         </a>
-                                        <a href="personal-blog.html#"
-                                            class="flex lg:transition-all lg:ease-linear lg:duration-300 hover:text-dark">
-                                            <svg class="fill-current" width="20" height="20"
-                                                viewBox="0 0 20 20" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <g clip-path="url(#clip0_678_4644)">
-                                                    <path
-                                                        d="M0.56313 10.0313C0.62563 12.9376 1.96938 15.8438 4.25062 17.5938C4.96937 18.1251 5.75062 18.4376 6.56312 18.7813C6.21937 16.5626 7.06312 14.3438 7.53187 12.1563C7.59437 11.9376 7.62562 11.6876 7.62562 11.4376C7.62562 11.0938 7.50062 10.7501 7.40687 10.4063C7.31312 9.84384 7.37562 9.25009 7.62562 8.71884C7.96937 8.00009 8.78187 7.43759 9.50062 7.71884C10.1569 7.96884 10.4069 8.84384 10.2819 9.53134C10.1569 10.2501 9.78187 10.8751 9.59437 11.5626C9.37562 12.2501 9.40687 13.0938 9.90687 13.5626C10.3756 14.0001 11.1256 14.0313 11.7194 13.7813C12.5944 13.4063 13.1569 12.5313 13.5006 11.6563C14.1256 10.0313 14.0006 7.96884 12.7194 6.78134C12.1881 6.25009 11.4381 5.90634 10.6256 5.78134C9.25062 5.56259 7.75062 5.96884 6.78187 6.96884C5.81312 7.96884 5.37562 9.50009 5.78187 10.8126C5.90687 11.2501 6.15687 11.6876 6.25062 12.1251C6.34437 12.5626 6.31312 13.1251 6.00062 13.4376C5.96937 13.4688 5.93812 13.5001 5.87562 13.5313C5.81312 13.5626 5.71937 13.5001 5.65687 13.4688C5.06312 13.0938 4.59437 12.5001 4.31312 11.8751C3.43812 9.96884 3.87562 7.59384 5.25062 6.03134C6.62562 4.46884 8.84437 3.71884 10.9069 4.00009C12.8444 4.25009 14.7506 5.40634 15.5631 7.18759C16.0631 8.25009 16.1569 9.46884 15.9694 10.6251C15.7819 11.8126 15.3131 12.9376 14.5319 13.8438C13.7506 14.7501 12.6256 15.3751 11.4381 15.4376C10.4694 15.5001 9.43812 15.1563 8.93812 14.3438C8.62562 16.0313 8.03187 17.6876 7.15687 19.1563C7.12562 19.2188 9.15687 19.6563 9.34437 19.6563C11.6569 19.8438 14.1256 18.9376 15.9381 17.5001C20.9381 13.5313 20.4069 5.93759 15.4694 2.1876C12.9069 0.218848 9.87562 -0.156152 6.87562 0.90635C5.96937 1.21885 5.12562 1.7501 4.34437 2.3126C3.09438 3.25009 2.09438 4.46884 1.43813 5.87509C0.78188 7.15634 0.53188 8.59384 0.56313 10.0313Z"
-                                                        fill="" />
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="clip0_678_4644">
-                                                        <rect width="20" height="20" fill="white" />
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                        </a>
-                                        <a href="personal-blog.html#"
+                                     
+                                        <a href="{{ auth()->user()->instagram }}" target="_blank"
                                             class="flex lg:transition-all lg:ease-linear lg:duration-300 hover:text-dark">
                                             <svg class="fill-current" width="20" height="20"
                                                 viewBox="0 0 20 20" fill="none"
@@ -105,7 +86,7 @@
                                                     fill="" />
                                             </svg>
                                         </a>
-                                        <a href="personal-blog.html#"
+                                        <a href="{{ auth()->user()->youtube }}" target="_blank"
                                             class="flex lg:transition-all lg:ease-linear lg:duration-300 hover:text-dark">
                                             <svg class="fill-current" width="20" height="20"
                                                 viewBox="0 0 20 20" fill="none"
@@ -115,16 +96,7 @@
                                                     fill="" />
                                             </svg>
                                         </a>
-                                        <a href="personal-blog.html#"
-                                            class="flex lg:transition-all lg:ease-linear lg:duration-300 hover:text-dark">
-                                            <svg class="fill-current" width="20" height="20"
-                                                viewBox="0 0 20 20" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M18.5854 6.50137C18.5027 8.18235 17.3453 10.4696 15.0856 13.3631C12.7708 16.3944 10.7867 17.91 9.18843 17.91C8.22393 17.91 7.36966 17.0282 6.65317 15.1543C6.1847 13.5009 5.77135 11.7923 5.27532 10.0838C4.77929 8.26502 4.22815 7.32808 3.59434 7.32808C3.48411 7.32808 3.01564 7.60365 2.24404 8.15479L1.5 7.05251C2.35427 6.30847 3.18098 5.56443 4.03525 4.79283C5.16509 3.82833 5.96425 3.30475 6.5705 3.27719C7.89324 3.16696 8.6924 4.1039 9.02308 6.00534C9.32621 8.09968 9.57423 9.42242 9.71201 9.91845C10.0978 11.6545 10.5387 12.5088 10.9521 12.5088C11.3103 12.5088 11.8339 11.9577 12.5779 10.8278C13.322 9.69799 13.6527 8.81616 13.7353 8.23746C13.8456 7.27297 13.4322 6.74938 12.5779 6.74938C12.1921 6.74938 11.7512 6.83205 11.3379 7.05251C12.1646 4.2968 13.7353 2.94651 16.1053 3.00162C17.8414 3.08429 18.6681 4.24169 18.5854 6.50137Z"
-                                                    fill="" />
-                                            </svg>
-                                        </a>
+                                      
                                     </div>
                                     <!-- Social Links end -->
                                 </div>
@@ -139,20 +111,20 @@
             <!-- ====== Blog Section Start -->
             <section class="pb-20">
                 <div class="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
-                    <div class="flex flex-col gap-y-7.5 lg:gap-y-12.5">
+                    <div class="flex flex-col gap-y-9 lg:gap-y-11 ">
                         <!-- blog item -->
                        @forelse($posts as $post)
-                         <div class="flex items-center flex-col lg:flex-row gap-10 lg:gap-15">
+                         <div class="flex items-center flex-col lg:flex-row gap-10 mb-4 lg:gap-15">
                             <div
                                 class="max-w-[570px] w-full overflow-hidden transition-all hover:scale-105 rounded-[10px]">
-                                <a href="{{route('blog',$post->slugs)}}">
+                                <a href="{{route('blog',$post->slug)}}">
                                     <img src="{{ $post->image }}" alt="image" />
                                 </a>
                             </div>
 
                             <div class="max-w-[540px] w-full">
-                                <a href="#"
-                                    class="inline-flex text-blue bg-blue/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">Technology</a>
+                                <a href="{{ route('category.show', $post->category->slug) }}"
+                                    class="inline-flex text-blue bg-blue/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">{{ $post->category->name }}</a>
 
                                 <h4 class="mt-3.5 mb-4">
                                     <a href="{{route('blog',$post->slug)}}"
@@ -164,7 +136,7 @@
                                     </a>
                                 </h4>
                                 <p>
-                                    {!! Str::limit($post->content, 50) !!}
+                                    {!! Str::limit($post->content, 100) !!}
                                 </p>
 
                                 <div class="flex items-center gap-2.5 mt-4.5">
@@ -172,7 +144,7 @@
 
                                     <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
 
-                                    <p>1 min read</p>
+                                    <p>{{ $post->getReadingTime($post->content) }} min read</p>
                                 </div>
                             </div>
                         </div>

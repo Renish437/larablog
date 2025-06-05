@@ -11,13 +11,10 @@
 
           <div class="max-w-[770px] mx-auto w-full text-center mb-15 mt-5">
             <h1 class="font-bold text-heading-6 lg:text-heading-4 text-dark mb-4">
-              Adrio Devid
+              {{ $author->name }}
             </h1>
             <p>
-              Mario, a co-founder of Acme and the content management system
-              Sanity, is an accomplished Staff Engineer with a specialization in
-              Frontend at Vercel. Before his current position, he served as a
-              Senior Engineer at Apple.
+              {{ $author->bio }} 
             </p>
           </div>
 
@@ -27,7 +24,7 @@
              <div class="group">
               <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
                 <a href="{{route('blog',$post->slug)}}">
-                  <img src="{{ asset('front/images/blog-01.png') }}" alt="image" class="w-full">
+                  <img src="{{ $post->thumbnail_url }}" alt="image" class="w-full">
                 </a>
               </div>
 
@@ -44,9 +41,9 @@
 
               <div class="flex flex-wrap gap-3 items-center justify-between mt-4.5">
                 <div class="flex items-center gap-2.5">
-                  <a href="{{route('author')}}" class="flex items-center gap-3">
+                  <a href="{{route('author',$post->id)}}" class="flex items-center gap-3">
                     <div class="flex w-6 h-6 rounded-full overflow-hidden">
-                      <img src="{{ asset('front/images/user-01.png') }}" alt="user">
+                      <img src="{{ $post->user->picture }}" alt="user">
                     </div>
                     <p class="text-sm">{{ $post->user->name }}</p>
                   </a>
@@ -55,7 +52,7 @@
 
                   <p class="text-sm">{{ $post->created_at->diffForHumans() }}</p>
                 </div>
-                <a href="#" class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
+                <a href="{{route('category.show',$post->category->slug)}}" class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">{{ $post->category->name }}</a>
               </div>
             </div>
            @empty

@@ -27,152 +27,45 @@
         <div class="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-11 gap-x-7.5">
             <!-- blog item -->
-            <div class="group">
-              <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
-                <a href="{{route('blog')}}">
-                  <img src="{{ asset('front/images/blog-01.png') }}" alt="image" class="w-full">
-                </a>
-              </div>
-
-              <h4>
-                <a href="{{route('blog')}}" class="block text-dark font-bold text-xl mb-3.5">
-                  <span class="bg-linear-to-r from-primary/50 to-primary/40 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]">
-                    Stylish Kitchen And Dining Room With Functional Ideas
-                  </span>
-                </a>
-              </h4>
-              <p>
-                Lorem Ipsum is simply dummy text of the print and typesetting
-                industry...
-              </p>
-
-              <div class="flex flex-wrap gap-3 items-center justify-between mt-4.5">
-                <div class="flex items-center gap-2.5">
-                  <a href="{{route('author')}}" class="flex items-center gap-3">
-                    <div class="flex w-6 h-6 overflow-hidden rounded-full">
-                      <img src="{{ asset('front/images/user-01.png') }}" alt="user">
-                    </div>
-                    <p class="text-sm">Adrio Devid</p>
-                  </a>
-
-                  <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
-
-                  <p class="text-sm">Sep 10, 2025</p>
-                </div>
-                <a href="#" class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
-              </div>
-            </div>
-
+            @forelse($posts as $post)
             <!-- blog item -->
             <div class="group">
               <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
-                <a href="{{route('blog')}}">
-                  <img src="{{ asset('front/images/blog-02.png') }}" alt="image" class="w-full">
+                <a href="{{route('blog', $post->slug)}}">
+                  <img src="{{ $post->thumbnail_url }}" alt="image" class="w-full">
                 </a>
               </div>
 
               <h4>
                 <a href="{{route('blog')}}" class="block text-dark font-bold text-xl mb-3.5">
                   <span class="bg-linear-to-r from-primary/50 to-primary/40 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]">
-                    Stylish Kitchen And Dining Room With Functional Ideas
+                   {{ $post->title }}
                   </span>
                 </a>
               </h4>
               <p>
-                Lorem Ipsum is simply dummy text of the print and typesetting
-                industry...
+                {!! Str::limit($post->content, 50) !!}
               </p>
 
               <div class="flex flex-wrap gap-3 items-center justify-between mt-4.5">
                 <div class="flex items-center gap-2.5">
-                  <a href="{{route('author')}}" class="flex items-center gap-3">
+                  <a href="{{route('author',$post->user->id)}}" class="flex items-center gap-3">
                     <div class="flex w-6 h-6 overflow-hidden rounded-full">
                       <img src="{{ asset('front/images/user-01.png') }}" alt="user">
                     </div>
-                    <p class="text-sm">Adrio Devid</p>
+                    <p class="text-sm">{{ $post->user->name }}</p>
                   </a>
 
                   <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
 
-                  <p class="text-sm">Sep 10, 2025</p>
+                  <p class="text-sm">{{ $post->created_at->diffForHumans() }}</p>
                 </div>
-                <a href="#" class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
+                <a href="#" class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">{{ $post->category->name }}</a>
               </div>
             </div>
-
-            <!-- blog item -->
-            <div class="group">
-              <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
-                <a href="{{route('blog')}}">
-                  <img src="{{ asset('front/images/blog-06.png') }}" alt="image" class="w-full">
-                </a>
-              </div>
-
-              <h4>
-                <a href="{{route('blog')}}" class="block text-dark font-bold text-xl mb-3.5">
-                  <span class="bg-linear-to-r from-primary/50 to-primary/40 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]">
-                    Stylish Kitchen And Dining Room With Functional Ideas
-                  </span>
-                </a>
-              </h4>
-              <p>
-                Lorem Ipsum is simply dummy text of the print and typesetting
-                industry...
-              </p>
-
-              <div class="flex flex-wrap gap-3 items-center justify-between mt-4.5">
-                <div class="flex items-center gap-2.5">
-                  <a href="{{route('author')}}" class="flex items-center gap-3">
-                    <div class="flex w-6 h-6 overflow-hidden rounded-full">
-                      <img src="{{ asset('front/images/user-01.png') }}" alt="user">
-                    </div>
-                    <p class="text-sm">Adrio Devid</p>
-                  </a>
-
-                  <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
-
-                  <p class="text-sm">Sep 10, 2025</p>
-                </div>
-                <a href="#" class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
-              </div>
-            </div>
-
-            <!-- blog item -->
-            <div class="group">
-              <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
-                <a href="{{route('blog')}}">
-                  <img src="{{ asset('front/images/blog-03.png') }}" alt="image" class="w-full">
-                </a>
-              </div>
-
-              <h4>
-                <a href="{{route('blog')}}" class="block text-dark font-bold text-xl mb-3.5">
-                  <span class="bg-linear-to-r from-primary/50 to-primary/40 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]">
-                    Stylish Kitchen And Dining Room With Functional Ideas
-                  </span>
-                </a>
-              </h4>
-              <p>
-                Lorem Ipsum is simply dummy text of the print and typesetting
-                industry...
-              </p>
-
-              <div class="flex flex-wrap gap-3 items-center justify-between mt-4.5">
-                <div class="flex items-center gap-2.5">
-                  <a href="{{route('author')}}" class="flex items-center gap-3">
-                    <div class="flex w-6 h-6 overflow-hidden rounded-full">
-                      <img src="{{ asset('front/images/user-01.png') }}" alt="user">
-                    </div>
-                    <p class="text-sm">Adrio Devid</p>
-                  </a>
-
-                  <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
-
-                  <p class="text-sm">Sep 10, 2025</p>
-                </div>
-                <a href="#" class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">Technology</a>
-              </div>
-            </div>
+            @empty
+            <p class="text-center text-lg">No post found</p>
+            @endforelse
           </div>
         </div>
       </section>

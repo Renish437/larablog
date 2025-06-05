@@ -7,6 +7,7 @@ use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -16,7 +17,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 
 class PostResource extends Resource
@@ -74,46 +76,85 @@ class PostResource extends Resource
                         ->maxLength(255),
                         ]),
               
-    FileUpload::make('featured_image')
-                
-                ->disk('public')
-                ->directory('posts')
-                ->required()
-                ->maxSize(1024) // 1MB limit
-               
-                ->afterStateUpdated(function ($state, callable $set) {
-                    Log::info('FileUpload state', ['state' => $state, 'type' => is_object($state) ? get_class($state) : gettype($state)]);
-                    if ($state instanceof \Illuminate\Http\UploadedFile) {
-                        Log::info('Image detected', ['filename' => $state->getClientOriginalName()]);
+    // FileUpload::make('featured_image')
+    // ->disk('public')
+    // ->directory('posts')
+    // ->required()
+    // ->maxSize(1024) // 1MB limit
+    // ->afterStateUpdated(function ($state, callable $set) {
+    //     Log::info('FileUpload state', ['state' => $state, 'type' => is_object($state) ? get_class($state) : gettype($state)]);
+    //     if ($state instanceof \Illuminate\Http\UploadedFile) {
+    //         Log::info('Image detected', ['filename' => $state->getClientOriginalName()]);
+    //         try {
+    //             $manager = new ImageManager(new Driver());
+    //             $image = $manager->read($state->getRealPath());
+    //             $thumbnail = $image->cover(200, 200);
+
+    //             $filename = pathinfo($state->getClientOriginalName(), PATHINFO_FILENAME);
+    //             $extension = $state->getClientOriginalExtension();
+    //             $thumbnailName = "{$filename}_thumb.{$extension}";
+    //             $thumbnailPath = storage_path("app/public/posts/thumbnails/{$thumbnailName}");
+
+    //             if (!file_exists(storage_path('app/public/posts/thumbnails'))) {
+    //                 mkdir(storage_path('app/public/posts/thumbnails'), 0755, true);
+    //             }
+
+    //             $thumbnail->save($thumbnailPath, ['quality' => 80]);
+    //             $thumbnailPathDb = "posts/thumbnails/{$thumbnailName}";
+    //             $set('thumbnail', $thumbnailPathDb); // Set 'thumbnail' as string
+    //             Log::info('Thumbnail generated and set', ['thumbnail' => $thumbnailPathDb]);
+    //         } catch (\Exception $e) {
+    //             Log::error('Thumbnail generation failed: ' . $e->getMessage());
+    //             throw new \Exception('Failed to generate thumbnail: ' . $e->getMessage());
+    //         }
+    //     } else {
+    //         Log::error('File not an UploadedFile', ['state' => $state]);
+    //     }
+    // }),
+     Hidden::make('thumbnail'),
+
+                FileUpload::make('featured_image')
+                    ->disk('public')
+                    ->directory('posts')
+                    ->required()
+                    ->image()
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        // This function runs when an image is uploaded.
+                        if (! $state instanceof \Illuminate\Http\UploadedFile) {
+                            return;
+                        }
+
                         try {
+                            // Create the thumbnail
                             $manager = new ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
                             $image = $manager->read($state->getRealPath());
                             $thumbnail = $image->cover(200, 200);
 
-                            $filename = pathinfo($state->getClientOriginalName(), PATHINFO_FILENAME);
-                            $extension = $state->getClientOriginalExtension();
-                            $thumbnailName = "{$filename}_thumb.{$extension}";
-                            $thumbnailPath = storage_path("app/public/posts/thumbnails/{$thumbnailName}");
+                            // Create a unique name and path for the thumbnail
+                            $filename = pathinfo($state->hashName(), PATHINFO_FILENAME);
+                            $thumbnailName = "{$filename}_thumb.webp"; // Using .webp is good practice
+                            $thumbnailPath = "posts/thumbnails/{$thumbnailName}";
 
-                            if (!file_exists(storage_path('app/public/posts/thumbnails'))) {
-                                mkdir(storage_path('app/public/posts/thumbnails'), 0755, true);
-                            }
+                            // Save the thumbnail to your public disk
+                            Storage::disk('public')->put(
+                                $thumbnailPath,
+                                (string) $thumbnail->toWebp(80) // Encode to a web-friendly format
+                            );
 
-                            $thumbnail->save($thumbnailPath, ['quality' => 80]);
-                            $thumbnailPathDb = "posts/thumbnails/{$thumbnailName}";
-                            $set('thumbnail_path', ['path' => $thumbnailPathDb]);
-                            Log::info('Thumbnail generated and set', ['thumbnail' => $thumbnailPathDb]);
+                            // 2. SET THE VALUE.
+                            // This puts the generated path into the 'thumbnail' Hidden field.
+                            $set('thumbnail', $thumbnailPath);
+
                         } catch (\Exception $e) {
-                            Log::error('Thumbnail generation failed: ' . $e->getMessage());
-                            throw new \Exception('Failed to generate thumbnail: ' . $e->getMessage());
+                            // Log error, optionally notify user
+                            \Illuminate\Support\Facades\Log::error('Thumbnail generation failed: ' . $e->getMessage());
                         }
-                    } else {
-                        Log::error('File not an UploadedFile', ['state' => $state]);
-                    }
-                }),
-            TextInput::make('thumbnail_path')
-                ->hidden()
-                ->dehydrated(true),
+                    }),
+
+                // ... your other fields
+            
+    
+
            
            
                 Forms\Components\TextInput::make('meta_keywords')
@@ -133,6 +174,8 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('thumbnail_url')
+                ->circular(),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('user_id')
@@ -145,7 +188,7 @@ class PostResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tags')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('featured_image'),
+                
                 Tables\Columns\TextColumn::make('meta_keywords')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('meta_description')

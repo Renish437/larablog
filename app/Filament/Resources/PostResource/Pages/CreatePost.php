@@ -14,13 +14,15 @@ class CreatePost extends CreateRecord
   protected function mutateFormDataBeforeCreate(array $data): array
 {
     $data['user_id'] = Auth::id();
-     if (isset($data['thumbnail_path'])) {
-        $data['thumbnail'] = $data['thumbnail_path'];
-        unset($data['thumbnail_path']); // Remove temporary field
-    }
+    
 
     return $data;
 }
+protected function getRedirectUrl(): string
+{
+    return $this->getResource()::getUrl('index');
+}
+
 
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\BaseController;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
@@ -40,26 +41,33 @@ class HomeController extends BaseController
          $hero_item_one = Post::where('visibility',1)->latest()->first();
          $hero_items = Post::where('visibility',1)->latest()->skip(1)->take(4)->get();
          $posts = Post::where('visibility',1)->get();
+         $authors = User::whereHas('posts')->with('posts')->get();
       
 
-        return view('front.pages.home',compact('hero_item_one','hero_items','posts'));
+        return view('front.pages.home',compact('hero_item_one','hero_items','posts','authors'));
     }
     public function my_home()
     {
-        return view('front.pages.my-home');
+        $posts = Post::where('user_id',Auth::user()->id)->get();
+        return view('front.pages.my-home',compact('posts'));
     }
     public function category($slug)
-    {
-        $category = Category::where('slug', $slug)->first();
+    {    
+        $category = Category::with('posts')->where('slug', $slug)->first();
+
+        
+        // $posts = Post::where('category_id', $category->id)->where('visibility',1)->get();
         return view('front.pages.category',compact('category'));
     }
     public function aboutUs()
     {
         return view('front.pages.about-us');
     }
-    public function author()
+    public function author($id)
     {
-        return view('front.pages.author');
+        $author = \App\Models\User::findOrFail($id);
+        $posts = Post::where('user_id', $author->id)->where('visibility',1)->get();
+        return view('front.pages.author',compact('author','posts'));
     }
     public function search()
     {
@@ -67,13 +75,19 @@ class HomeController extends BaseController
     }
     public function blogs()
     {
+        $posts = Post::where('visibility',1)->get();
    
-        return view('front.pages.blogs');
+        return view('front.pages.blogs',compact('posts'));
     }
     public function blog($slug)
     {
-        $post = Post::where('slug', $slug)->first();
-        return view('front.pages.blog',compact('post'));
+    
+        $categories = Category::whereHas('posts')->get();
+      $post = Post::with('tags')->where('slug', $slug)->firstOrFail();
+      $recentPosts = Post::where('visibility',1)->where('id', '!=', $post->id)->latest()->take(3)->get();
+ 
+  
+        return view('front.pages.blog',compact('categories','post','recentPosts'));
     }
     public function notFound(){
         return view('front.pages.not-found');

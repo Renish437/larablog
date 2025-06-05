@@ -13,11 +13,25 @@
               </h1>
 
               <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-                <a href="{{ route('author') }}" class="flex w-8.5 h-8.5 rounded-full overflow-hidden">
-                  <img src="{{ asset(Storage::url($post->user->picture)) }}" alt="user">
+                <a href="{{route('author',$post->user->id)}}" class="flex w-8.5 h-8.5 rounded-full overflow-hidden">
+                  <img src="{{ $post->user->picture }}" alt="user">
                 </a>
 
+                <div class="flex flex-wrap items-center gap-4">
+                  <div class="flex flex-wrap items-center gap-2.5">
+                    <h4 class="text-custom-sm">
+                      <a href="{{route('author',$post->user->id)}}">{{ $post->user->name }}</a>
+                    </h4>
+                    <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
+                    <p class="text-custom-sm">{{ $post->created_at->diffForHumans() }}</p>
+                    <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
+                    <p class="text-custom-sm">{{ $post->getReadingTime($post->content) }} min read</p>
+                  </div>
 
+                  <a href="category.html" class="inline-flex text-teal-dark bg-teal/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">
+                    {{ $post->category->name }}
+                  </a>
+                </div>
               </div>
 
               <div class="mt-9">
@@ -55,8 +69,19 @@
               <div class="flex flex-wrap items-center justify-between gap-10 mt-18">
                 <ul class="flex items-center gap-3">
                   <li class="text-body">Tags:</li>
-                  <li class="duration-200 ease-in text-dark hover:text-primary">
-                    <a href="#">{{ $post->tags ?: 'No tags' }}</a>
+                  <li class="duration-200 ease-in text-dark ">
+                  {{-- @if ($post)
+    <a href="#">{{ $post->tags->pluck('name')->implode(', ') ?: 'No tags' }}</a>
+@else
+    <p>No post found</p>
+@endif --}}
+@if($post->tags)
+    @foreach($post->tags as $tag)
+       <a class="hover:text-primary" href="#"> {{ $loop->first ?'#':'#' }}{{ $tag->name }}</a>{{ $loop->last ? '' : ',' }}
+    @endforeach
+@endif
+
+
                   </li>
                  
                 </ul>
@@ -96,18 +121,16 @@
               </div>
 
               <div class="flex flex-wrap gap-8 mt-12.5">
-                <a href="{{ route('author') }}" class="flex w-full overflow-hidden rounded-full max-w-30 h-30">
-                  <img src="{{ asset('front/images/user-02.png') }}" alt="user">
+                <a href="{{ route('author',$post->user->id) }}" class="flex w-full overflow-hidden rounded-full max-w-30 h-30">
+                  <img src="{{ $post->user->picture }}" alt="user">
                 </a>
 
                 <div class="max-w-[617px]">
                   <h4 class="font-medium text-dark text-[22px] leading-7 mb-3">
-                    <a href="{{ route('author') }}">Author: Rayna Kenter</a>
+                    <a href="{{ route('author',$post->user->id) }}">Author: {{ $post->user->name }}</a>
                   </h4>
                   <p>
-                    Sed ut perspiciatis unde omnis iste natus error sit
-                    voluptatem accusantium doloremque laudantium, totam rem
-                    aperiam, eaque ipsa quae ab illo inventore veritatis.
+                    {{ $post->user->bio }}
                   </p>
 
                   <!-- Social Links start -->
@@ -157,60 +180,29 @@
 
                   <div class="flex flex-col gap-7.5">
                     <!-- post item -->
-                    <a href="{{ route('blogs') }}" class="group flex gap-6.5">
+
+                    @forelse($recentPosts as $recentPost)
+                      <a href="{{ route('blogs') }}" class="group flex gap-6.5">
                       <div class="max-w-[70px] w-full h-17.5 rounded-full">
-                        <img src="{{ asset('front/images/blog-small-01.png') }}" alt="blog">
+                        <img src="{{ $recentPost->thumbnail_url ?? $recentPost->image }}" alt="blog">
                       </div>
 
                       <div>
                         <h5 class="font-medium text-sm text-dark duration-200 ease-in mb-1.5 group-hover:text-primary">
-                          The Most Beautiful Green Field on Earth
+                          {{ $recentPost->title }}
                         </h5>
                         <div class="flex items-center gap-2">
-                          <p class="text-custom-xs">Rhiel Madsen</p>
+                          <p class="text-custom-xs">By {{ $recentPost->user->name }}</p>
                           <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
-                          <p class="text-custom-xs">Sep 10, 2025</p>
+                          <p class="text-custom-xs">{{ $recentPost->created_at->diffForHumans() }}</p>
                         </div>
                       </div>
                     </a>
+                    @empty
+                      <p>No post found</p>
+                    @endforelse
 
-                    <!-- post item -->
-                    <a href="{{ route('blogs') }}" class="group flex gap-6.5">
-                      <div class="max-w-[70px] w-full h-17.5 rounded-full">
-                        <img src="{{ asset('front/images/blog-small-02.png') }}" alt="blog">
-                      </div>
-
-                      <div>
-                        <h5 class="font-medium text-sm text-dark duration-200 ease-in mb-1.5 group-hover:text-primary">
-                          Facts About Business That Will Help You Success
-                        </h5>
-
-                        <div class="flex items-center gap-2">
-                          <p class="text-custom-xs">Jordyn Culhne</p>
-                          <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
-                          <p class="text-custom-xs">Mar 12, 2025</p>
-                        </div>
-                      </div>
-                    </a>
-
-                    <!-- post item -->
-                    <a href="{{ route('blogs') }}" class="group flex gap-6.5">
-                      <div class="max-w-[70px] w-full h-17.5 rounded-full">
-                        <img src="{{ asset('front/images/blog-small-03.png') }}" alt="blog">
-                      </div>
-
-                      <div>
-                        <h5 class="font-medium text-sm text-dark duration-200 ease-in mb-1.5 group-hover:text-primary">
-                          5 Easy Ways You Can Turn Future Into Success
-                        </h5>
-
-                        <div class="flex items-center gap-2">
-                          <p class="text-custom-xs">Ane Madsen</p>
-                          <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
-                          <p class="text-custom-xs">Nov 25, 2025</p>
-                        </div>
-                      </div>
-                    </a>
+                
                   </div>
                 </div>
                 <!-- Recent Post Box End -->
@@ -223,81 +215,22 @@
 
                   <div class="flex flex-col gap-3">
                     <!-- topics item -->
+                   @foreach($categories as $category)
                     <a href="{{ route('blogs') }}" class="flex items-center justify-between gap-2 group">
                       <p class="duration-200 ease-in group-hover:text-dark">
-                        Celebration
+                       {{ $category->name }}
                       </p>
 
                       <span class="flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-gray-3 ease-in duration-200 group-hover:text-white group-hover:bg-dark group-hover:border-dark">
-                        02
+                        {{ $category->posts->count() }}
                       </span>
                     </a>
+                   @endforeach
 
-                    <!-- topics item -->
-                    <a href="{{ route('blogs') }}" class="flex items-center justify-between gap-2 group">
-                      <p class="duration-200 ease-in group-hover:text-dark">
-                        Culture
-                      </p>
 
-                      <span class="flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-gray-3 ease-in duration-200 group-hover:text-white group-hover:bg-dark group-hover:border-dark">
-                        05
-                      </span>
-                    </a>
+                  
 
-                    <!-- topics item -->
-                    <a href="{{ route('blogs') }}" class="flex items-center justify-between gap-2 group">
-                      <p class="duration-200 ease-in group-hover:text-dark">
-                        Fashion
-                      </p>
-
-                      <span class="flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-gray-3 ease-in duration-200 group-hover:text-white group-hover:bg-dark group-hover:border-dark">
-                        12
-                      </span>
-                    </a>
-
-                    <!-- topics item -->
-                    <a href="{{ route('blogs') }}" class="flex items-center justify-between gap-2 group">
-                      <p class="duration-200 ease-in group-hover:text-dark">
-                        Inspiration
-                      </p>
-
-                      <span class="flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-gray-3 ease-in duration-200 group-hover:text-white group-hover:bg-dark group-hover:border-dark">
-                        30
-                      </span>
-                    </a>
-
-                    <!-- topics item -->
-                    <a href="{{ route('blogs') }}" class="flex items-center justify-between gap-2 group">
-                      <p class="duration-200 ease-in group-hover:text-dark">
-                        Lifestyle
-                      </p>
-
-                      <span class="flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-gray-3 ease-in duration-200 group-hover:text-white group-hover:bg-dark group-hover:border-dark">
-                        45
-                      </span>
-                    </a>
-
-                    <!-- topics item -->
-                    <a href="{{ route('blogs') }}" class="flex items-center justify-between gap-2 group">
-                      <p class="duration-200 ease-in group-hover:text-dark">
-                        Political
-                      </p>
-
-                      <span class="flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-gray-3 ease-in duration-200 group-hover:text-white group-hover:bg-dark group-hover:border-dark">
-                        23
-                      </span>
-                    </a>
-
-                    <!-- topics item -->
-                    <a href="{{ route('blogs') }}" class="flex items-center justify-between gap-2 group">
-                      <p class="duration-200 ease-in group-hover:text-dark">
-                        Trending
-                      </p>
-
-                      <span class="flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-gray-3 ease-in duration-200 group-hover:text-white group-hover:bg-dark group-hover:border-dark">
-                        03
-                      </span>
-                    </a>
+                 
                   </div>
                 </div>
                 <!-- Explore Topics Box End -->
