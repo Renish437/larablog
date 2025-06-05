@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
@@ -23,6 +24,7 @@ class Post extends Model
                 'meta_keywords',
                 'meta_description',
                 'visibility',
+                'thumbnail',
             ];
             public function sluggable(): array
     {
@@ -32,27 +34,21 @@ class Post extends Model
             ]
         ];
     }
-     public function getImageAttribute(): string // You can also name it getFeaturedThumbnailUrlAttribute for clarity
-    {
-        if ($this->featured_image) {
-            // $this->featured_image stores something like 'posts/imagename.jpg'
-            $filename = basename($this->featured_image);
-
-            // Construct the path to the thumbnail
-            // This must match exactly where your `createThumbnail` method saves them.
-            $thumbnailPath = 'posts/thumbnails/thumb_' . $filename;
-
-            // Use asset() to generate the full URL, assuming files are in public/storage
-            // (which is linked from storage/app/public)
-            return asset('storage/' . $thumbnailPath);
-        }
-
-        // Optional: Return a path to a default placeholder image if no featured image exists
-        return asset('images/default-placeholder.png'); // Make sure this placeholder image exists in public/images
+   public function getImageThumbAttribute(): string
+{
+    if ($this->featured_image) {
+        // $filename = pathinfo($this->featured_image, PATHINFO_FILENAME);
+        // $extension = pathinfo($this->featured_image, PATHINFO_EXTENSION);
+        // $thumbnailPath = "posts/thumbnails/{$filename}_thumb.{$extension}";
+        // return asset('storage/' . $thumbnailPath);
+        return asset(Storage::url($this->featured_image));
     }
 
+    return asset('images/default-placeholder.png');
+}
+
     // If you also want to easily get the original image URL:
-    public function getOriginalImageUrlAttribute(): string
+    public function getImageAttribute(): string
     {
         if ($this->featured_image) {
             return asset('storage/' . $this->featured_image);
@@ -67,16 +63,22 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
+  
 //     public static function search($search)
 // {
 //     return empty($search) ? static::query() : static::query()
 //         ->where('title', 'like', '%' . $search . '%')
 //         ->orWhere('content', 'like', '%' . $search . '%');
 // }
+
 public static function search($search)
 {
     return empty($search) ? static::query() : static::query()
         ->where('title', 'like', '%' . $search . '%')
         ->orWhere('content', 'like', '%' . $search . '%')
-        ->orWhere('tags', 'like', '%' . $search . '%');}
+        ->orWhere('tags', 'like', '%' . $search . '%');
+    }
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
+    }
 }

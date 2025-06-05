@@ -133,4 +133,102 @@ $this->redirect(route('admin.posts.index'));
 
     return true;
 }
+// protected function createThumbnail($originalPath, $filename, $thumbWidth, $thumbHeight)
+// {
+//     $extension = strtolower(pathinfo($originalPath, PATHINFO_EXTENSION));
+
+//     // Load the original image
+//     switch ($extension) {
+//         case 'jpg':
+//         case 'jpeg':
+//             $img = imagecreatefromjpeg($originalPath);
+//             break;
+//         case 'png':
+//             $img = imagecreatefrompng($originalPath);
+//             break;
+//         case 'gif':
+//             $img = imagecreatefromgif($originalPath);
+//             break;
+//         case 'webp':
+//             $img = imagecreatefromwebp($originalPath);
+//             break;
+//         default:
+//             return false; // Unsupported type
+//     }
+
+//     if (!$img) {
+//         return false; // Failed to load image
+//     }
+
+//     $width = imagesx($img);
+//     $height = imagesy($img);
+
+//     // Calculate aspect ratio to avoid stretching
+//     $srcAspect = $width / $height;
+//     $thumbAspect = $thumbWidth / $thumbHeight;
+
+//     if ($srcAspect >= $thumbAspect) {
+//         // Source image is wider than thumbnail
+//         $newHeight = $thumbHeight;
+//         $newWidth = (int)($thumbHeight * $srcAspect);
+//         $srcX = (int)(($newWidth - $thumbWidth) / 2);
+//         $srcY = 0;
+//     } else {
+//         // Source image is taller than thumbnail
+//         $newWidth = $thumbWidth;
+//         $newHeight = (int)($thumbWidth / $srcAspect);
+//         $srcX = 0;
+//         $srcY = (int)(($newHeight - $thumbHeight) / 2);
+//     }
+
+//     // Create new thumbnail image
+//     $thumb = imagecreatetruecolor($thumbWidth, $thumbHeight);
+
+//     // Preserve transparency for PNG and GIF
+//     if ($extension === 'png' || $extension === 'gif') {
+//         imagecolortransparent($thumb, imagecolorallocatealpha($thumb, 0, 0, 0, 127));
+//         imagealphablending($thumb, false);
+//         imagesavealpha($thumb, true);
+//     }
+
+//     // Resize and crop to center
+//     $temp = imagecreatetruecolor($newWidth, $newHeight);
+//     if ($extension === 'png' || $extension === 'gif') {
+//         imagecolortransparent($temp, imagecolorallocatealpha($temp, 0, 0, 0, 127));
+//         imagealphablending($temp, false);
+//         imagesavealpha($temp, true);
+//     }
+//     imagecopyresampled($temp, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+//     imagecopyresampled($thumb, $temp, 0, 0, $srcX, $srcY, $thumbWidth, $thumbHeight, $thumbWidth, $thumbHeight);
+
+//     // Save thumbnail
+//     $thumbnailPath = storage_path('app/public/posts/thumbnails');
+//     if (!File::isDirectory($thumbnailPath)) {
+//         File::makeDirectory($thumbnailPath, 0777, true, true);
+//     }
+//     $savePath = $thumbnailPath . '/thumb_' . $filename;
+
+//     switch ($extension) {
+//         case 'jpg':
+//         case 'jpeg':
+//             imagejpeg($thumb, $savePath, 90); // Higher quality (0-100, 90 is a good balance)
+//             break;
+//         case 'png':
+//             imagepng($thumb, $savePath, 9); // Maximum compression (0-9, 9 is least compression)
+//             break;
+//         case 'gif':
+//             imagegif($thumb, $savePath);
+//             break;
+//         case 'webp':
+//             imagewebp($thumb, $savePath, 90); // Higher quality for WebP
+//             break;
+//     }
+
+//     // Clean up
+//     imagedestroy($img);
+//     imagedestroy($temp);
+//     imagedestroy($thumb);
+
+//     return true;
+// }
 }

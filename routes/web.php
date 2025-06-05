@@ -14,7 +14,7 @@ Route::get('/about-us',[HomeController::class,'aboutUs'])->name('about');
 Route::get('/author/1', [HomeController::class, 'author'])->name('author');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::get('/blogs', [HomeController::class, 'blogs'])->name('blogs');
-Route::get('blog/1', [HomeController::class, 'blog'])->name('blog');
+Route::get('blog/{slug}', [HomeController::class, 'blog'])->name('blog');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::fallback([HomeController::class,'notFound'])->name('404');

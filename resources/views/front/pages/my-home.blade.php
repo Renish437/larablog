@@ -141,11 +141,12 @@
                 <div class="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
                     <div class="flex flex-col gap-y-7.5 lg:gap-y-12.5">
                         <!-- blog item -->
-                        <div class="flex items-center flex-col lg:flex-row gap-10 lg:gap-15">
+                       @forelse($posts as $post)
+                         <div class="flex items-center flex-col lg:flex-row gap-10 lg:gap-15">
                             <div
                                 class="max-w-[570px] w-full overflow-hidden transition-all hover:scale-105 rounded-[10px]">
-                                <a href="{{route('blog')}}">
-                                    <img src="front/images/blog-13.png" alt="image" />
+                                <a href="{{route('blog',$post->slugs)}}">
+                                    <img src="{{ $post->image }}" alt="image" />
                                 </a>
                             </div>
 
@@ -154,22 +155,20 @@
                                     class="inline-flex text-blue bg-blue/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">Technology</a>
 
                                 <h4 class="mt-3.5 mb-4">
-                                    <a href="{{route('blog')}}"
+                                    <a href="{{route('blog',$post->slug)}}"
                                         class="group text-dark font-bold text-xl sm:text-2xl xl:text-custom-4xl">
                                         <span
                                             class="bg-linear-to-r from-primary/40 to-primary/30 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]">
-                                            Start here for a quick overview of everything you need to
-                                            know
+                                            {{ $post->title }}
                                         </span>
                                     </a>
                                 </h4>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat
-                                    ut facilisis rutrum donec tristique mauris est ac nunc....
+                                    {!! Str::limit($post->content, 50) !!}
                                 </p>
 
                                 <div class="flex items-center gap-2.5 mt-4.5">
-                                    <p>Aug 28, 2025</p>
+                                    <p>By {{ $post->user->name }}</p>
 
                                     <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
 
@@ -177,228 +176,13 @@
                                 </div>
                             </div>
                         </div>
+                       @empty
+                        <p>No Post</p>
+                       @endforelse
 
-                        <!-- blog item -->
-                        <div class="flex items-center flex-col lg:flex-row gap-10 lg:gap-15">
-                            <div
-                                class="max-w-[570px] w-full overflow-hidden transition-all hover:scale-105 rounded-[10px]">
-                                <a href="{{route('blog')}}">
-                                    <img src="front/images/blog-14.png" alt="image" />
-                                </a>
-                            </div>
+               
 
-                            <div class="max-w-[540px] w-full">
-                                <a href="#"
-                                    class="inline-flex text-green-dark bg-green/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">Travel</a>
-
-                                <h4 class="mt-3.5 mb-4">
-                                    <a href="{{route('blog')}}"
-                                        class="group text-dark font-bold text-xl sm:text-2xl xl:text-custom-4xl">
-                                        <span
-                                            class="bg-linear-to-r from-primary/40 to-primary/30 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]">
-                                            Customizing your brand and design settings
-                                        </span>
-                                    </a>
-                                </h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat
-                                    ut facilisis rutrum donec tristique mauris est ac nunc....
-                                </p>
-
-                                <div class="flex items-center gap-2.5 mt-4.5">
-                                    <p>Sep 19, 2025</p>
-
-                                    <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
-
-                                    <p>3 min read</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- blog item -->
-                        <div class="flex items-center flex-col lg:flex-row gap-10 lg:gap-15">
-                            <div
-                                class="max-w-[570px] w-full overflow-hidden transition-all hover:scale-105 rounded-[10px]">
-                                <a href="{{route('blog')}}">
-                                    <img src="front/images/blog-15.png" alt="image" />
-                                </a>
-                            </div>
-
-                            <div class="max-w-[540px] w-full">
-                                <a href="#"
-                                    class="inline-flex text-purple-dark bg-purple/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">Lifestyle</a>
-
-                                <h4 class="mt-3.5 mb-4">
-                                    <a href="{{route('blog')}}"
-                                        class="group text-dark font-bold text-xl sm:text-2xl xl:text-custom-4xl">
-                                        <span
-                                            class="bg-linear-to-r from-primary/40 to-primary/30 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]">
-                                            Writing and managing content in Clarity, an advanced guide
-                                        </span>
-                                    </a>
-                                </h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat
-                                    ut facilisis rutrum donec tristique mauris est ac nunc....
-                                </p>
-
-                                <div class="flex items-center gap-2.5 mt-4.5">
-                                    <p>Nov 12, 2025</p>
-
-                                    <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
-
-                                    <p>5 min read</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- blog item -->
-                        <div class="flex items-center flex-col lg:flex-row gap-10 lg:gap-15">
-                            <div
-                                class="max-w-[570px] w-full overflow-hidden transition-all hover:scale-105 rounded-[10px]">
-                                <a href="{{route('blog')}}">
-                                    <img src="front/images/blog-16.png" alt="image" />
-                                </a>
-                            </div>
-
-                            <div class="max-w-[540px] w-full">
-                                <a href="#"
-                                    class="inline-flex text-cyan-dark bg-cyan/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">Culture</a>
-
-                                <h4 class="mt-3.5 mb-4">
-                                    <a href="{{route('blog')}}"
-                                        class="group text-dark font-bold text-xl sm:text-2xl xl:text-custom-4xl">
-                                        <span
-                                            class="bg-linear-to-r from-primary/40 to-primary/30 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]">
-                                            Building your audience with subscriber signups
-                                        </span>
-                                    </a>
-                                </h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat
-                                    ut facilisis rutrum donec tristique mauris est ac nunc....
-                                </p>
-
-                                <div class="flex items-center gap-2.5 mt-4.5">
-                                    <p>Mar 09, 2025</p>
-
-                                    <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
-
-                                    <p>3 min read</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- blog item -->
-                        <div class="flex items-center flex-col lg:flex-row gap-10 lg:gap-15">
-                            <div
-                                class="max-w-[570px] w-full overflow-hidden transition-all hover:scale-105 rounded-[10px]">
-                                <a href="{{route('blog')}}">
-                                    <img src="front/images/blog-17.png" alt="image" />
-                                </a>
-                            </div>
-
-                            <div class="max-w-[540px] w-full">
-                                <a href="#"
-                                    class="inline-flex text-green-dark bg-green/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">Travel</a>
-
-                                <h4 class="mt-3.5 mb-4">
-                                    <a href="{{route('blog')}}"
-                                        class="group text-dark font-bold text-xl sm:text-2xl xl:text-custom-4xl">
-                                        <span
-                                            class="bg-linear-to-r from-primary/40 to-primary/30 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]">
-                                            Selling premium member ships with recurring revenue
-                                        </span>
-                                    </a>
-                                </h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat
-                                    ut facilisis rutrum donec tristique mauris est ac nunc....
-                                </p>
-
-                                <div class="flex items-center gap-2.5 mt-4.5">
-                                    <p>Jan 15, 2025</p>
-
-                                    <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
-
-                                    <p>7 min read</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- blog item -->
-                        <div class="flex items-center flex-col lg:flex-row gap-10 lg:gap-15">
-                            <div
-                                class="max-w-[570px] w-full overflow-hidden transition-all hover:scale-105 rounded-[10px]">
-                                <a href="{{route('blog')}}">
-                                    <img src="front/images/blog-18.png" alt="image" />
-                                </a>
-                            </div>
-
-                            <div class="max-w-[540px] w-full">
-                                <a href="#"
-                                    class="inline-flex text-teal-dark bg-teal/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">Health</a>
-
-                                <h4 class="mt-3.5 mb-4">
-                                    <a href="{{route('blog')}}"
-                                        class="group text-dark font-bold text-xl sm:text-2xl xl:text-custom-4xl">
-                                        <span
-                                            class="bg-linear-to-r from-primary/40 to-primary/30 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]">
-                                            How to grow your business around an audience
-                                        </span>
-                                    </a>
-                                </h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat
-                                    ut facilisis rutrum donec tristique mauris est ac nunc....
-                                </p>
-
-                                <div class="flex items-center gap-2.5 mt-4.5">
-                                    <p>Jan 15, 2025</p>
-
-                                    <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
-
-                                    <p>7 min read</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- blog item -->
-                        <div class="flex items-center flex-col lg:flex-row gap-10 lg:gap-15">
-                            <div
-                                class="max-w-[570px] w-full overflow-hidden transition-all hover:scale-105 rounded-[10px]">
-                                <a href="{{route('blog')}}">
-                                    <img src="front/images/blog-19.png" alt="image" />
-                                </a>
-                            </div>
-
-                            <div class="max-w-[540px] w-full">
-                                <a href="#"
-                                    class="inline-flex text-blue bg-blue/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full">Technology</a>
-
-                                <h4 class="mt-3.5 mb-4">
-                                    <a href="{{route('blog')}}"
-                                        class="group text-dark font-bold text-xl sm:text-2xl xl:text-custom-4xl">
-                                        <span
-                                            class="bg-linear-to-r from-primary/40 to-primary/30 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]">
-                                            Setting up apps and custom integrations
-                                        </span>
-                                    </a>
-                                </h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat
-                                    ut facilisis rutrum donec tristique mauris est ac nunc....
-                                </p>
-
-                                <div class="flex items-center gap-2.5 mt-4.5">
-                                    <p>Jan 15, 2025</p>
-
-                                    <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
-
-                                    <p>7 min read</p>
-                                </div>
-                            </div>
-                        </div>
+                  
                     </div>
                     <!-- Blog Show More BTN -->
                     <button
