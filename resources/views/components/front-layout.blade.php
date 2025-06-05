@@ -1,16 +1,51 @@
 @props(['title'])
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" 
+
+>
   <head>
       @yield('meta_tags')
-    {{-- <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> --}}
+
     <title>Clarity - {{ $title ?? 'Blog' }}</title>
-  {{-- <link rel="icon" href="front/images/favicon.ico"> --}}
-    {{-- <link rel="icon"   href="{{ asset('front/favico.ico') }}"> --}}
+  
     <link rel="shortcut icon" href="{{ asset(Storage::url($setting->site_favicon)) }}">
-    <link href="{{ asset('front/style.css') }}" rel="stylesheet">
+     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+   
+     
+       
+
+    {{-- ... other head elements ... --}}
+    <link href="{{ asset('front/style.css') }}" rel="stylesheet">      {{-- Your main site styles --}}
+    <link href="{{ asset('front/prism.css') }}" rel="stylesheet" />      {{-- The MODIFIED Prism theme from Step 1 --}}
+
+    <style>
+        /*
+         * Styles for the wrapper around <pre> (which should have .not-prose)
+         * and the <pre> block itself.
+         */
+         .prose pre {
+  display: block;
+  background-color: #212733;
+  color: #c8ccd4;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  white-space: pre-wrap;
+}
+.prose {
+  max-width: 90ch;
+  margin: 0 0;
+  padding: 0rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+     
+    </style>
+    
    
 
 
@@ -256,5 +291,11 @@
 </button>
 
     <!-- ====== Back To Top End ===== -->
-  <script defer src="{{ asset('front/bundle.js') }}"></script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94a0cdf2f866ca11',t:'MTc0ODk3MDYzMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+  <script defer src="{{ asset('front/bundle.js') }}"></script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94a0cdf2f866ca11',t:'MTc0ODk3MDYzMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+
+   <!-- Prism.js Core & Plugins -->
+    <script src="{{ asset('front/prism.js') }}"></script>
+
+    @stack('scripts')
+</body>
 </html>

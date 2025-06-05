@@ -21,7 +21,7 @@
               </div>
 
               <div class="mt-9">
-                <p class="mb-5 text-body">
+             
                   {{-- There are many variations of passages of Lorem Ipsum
                   available, but the majority have suffered alteration in some
                   form, by injected humour, or randomised words which don't look
@@ -29,8 +29,21 @@
                   Lorem Ipsum, you need to be sure there isn't anything
                   embarrassing hidden in the middle of text. All the Lorem Ipsum
                   generators on the Internet tend to. --}}
-                  {!! $post->content !!}
-                </p>
+             
+    
+    <article class="prose dark:prose-invert lg:prose-xl leading-relaxed">
+            {{-- Optional: Post Title --}}
+            {{-- <h1>{{ $post->title }}</h1> --}}
+
+            {{-- Render the content from Filament Rich Editor --}}
+            {{-- <div id="post-content-area"> --}}
+                {!! $post->content !!}
+            {{-- </div> --}}
+        </article>
+
+    
+  
+               
 
               
               </div>
@@ -353,5 +366,103 @@
   </div>
 </section>
 
-   
+   @push('script')
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const contentArea = document.getElementById('post-content-area');
+    if (!contentArea) {
+        console.warn('Content area #post-content-area not found for Prism.js processing.');
+        return;
+    }
+
+    // Find all <pre> elements that are direct children of the content area
+    // or nested within typical block elements, but not already processed.
+    const preElements = contentArea.querySelectorAll('pre:not(div.code-block-wrapper > pre)');
+
+    preElements.forEach(preEl => {
+        // 1. Create the main wrapper for .not-prose and potential toolbar
+        let wrapper = preEl.parentElement;
+        // If the parent is already a code-toolbar (Prism added it), or our custom wrapper, skip re-wrapping.
+        // Or if the parent is the contentArea itself and preEl is a direct child.
+        if (!wrapper.classList.contains('code-toolbar') && !wrapper.classList.contains('code-block-wrapper')) {
+            wrapper = document.createElement('div');
+            // This class is what Prism's Toolbar plugin looks for to add its toolbar (e.g., copy button)
+            // It also serves as our primary styling hook and isolation point.
+            wrapper.className = 'code-toolbar code-block-wrapper not-prose';
+            preEl.parentNode.insertBefore(wrapper, preEl);
+            wrapper.appendChild(preEl);
+        } else if (!wrapper.classList.contains('not-prose')) {
+            // If it's already a code-toolbar or code-block-wrapper but missing not-prose
+             wrapper.classList.add('not-prose');
+             if (!wrapper.classList.contains('code-block-wrapper')) {
+                wrapper.classList.add('code-block-wrapper'); // Ensure our styling hook
+             }
+             if (!wrapper.classList.contains('code-toolbar')) {
+                wrapper.classList.add('code-toolbar'); // Ensure Prism toolbar hook
+             }
+        }
+
+
+        // 2. Ensure the <pre> tag has necessary classes if Line Numbers plugin is used
+        if (typeof Prism.plugins.LineNumbers !== 'undefined') {
+            preEl.classList.add('line-numbers');
+        }
+
+        // 3. Ensure the <code> tag inside <pre> has a language class.
+        let codeEl = preEl.querySelector('code');
+        if (codeEl) {
+            let lang = '';
+            // Attempt to get language from existing class (e.g. class="language-javascript")
+            const existingLangClass = Array.from(codeEl.classList).find(cls => cls.startsWith('language-'));
+            if (existingLangClass) {
+                lang = existingLangClass.substring('language-'.length);
+            }
+
+            // If Filament's RichEditor Tiptap output uses a specific attribute for language:
+            // Example: Tiptap CodeBlockLowlight might output `data-language`
+            if (!lang && preEl.dataset.language) { // Check on <pre>
+                lang = preEl.dataset.language;
+            } else if (!lang && codeEl.dataset.language) { // Check on <code>
+                lang = codeEl.dataset.language;
+            }
+
+            if (lang) {
+                if (!codeEl.classList.contains('language-' + lang)) {
+                    codeEl.classList.add('language-' + lang);
+                }
+                // Prism's Toolbar plugin might also need language on the <pre> for some tools
+                if (!preEl.classList.contains('language-' + lang)) {
+                    preEl.classList.add('language-' + lang);
+                }
+            } else {
+                // If no language is specified, Prism might not highlight or default.
+                // It's best if the Rich Editor provides the language.
+                // For now, we won't add a default to avoid incorrect highlighting.
+                console.warn('Code block found without a language class. Highlighting might be incomplete or incorrect.', codeEl);
+            }
+        } else {
+            // If <pre> doesn't contain <code>, wrap its content in one.
+            // This is less common from rich editors but good to handle.
+            const currentContent = preEl.innerHTML;
+            preEl.innerHTML = ''; // Clear pre
+            codeEl = document.createElement('code');
+            // Attempt to add language from pre if it somehow got there.
+            const preLangClass = Array.from(preEl.classList).find(cls => cls.startsWith('language-'));
+            if (preLangClass) {
+                codeEl.classList.add(preLangClass);
+            } else if (preEl.dataset.language) {
+                codeEl.classList.add('language-' + preEl.dataset.language);
+            }
+            // else: console.warn('Code block (pre only) found without a language class.')
+            codeEl.innerHTML = currentContent;
+            preEl.appendChild(codeEl);
+        }
+    });
+
+    // Re-initialize Prism to highlight all code blocks, including newly processed ones.
+    // This is important if Prism was already loaded and ran before our DOM manipulations.
+    Prism.highlightAll();
+});
+</script>
+   @endpush
 </x-front-layout>

@@ -2885,4 +2885,104 @@ nav.overflow-x-scroll {
             transform: rotate(360deg);
   }
 }
+/* prose.css */
+.prose {
+  max-width: 65ch;
+  margin: 0 auto;
+  padding: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+.prose h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.prose h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #4a5568;
+}
+
+/* Ensure the code block is a distinct block */
+.prose pre {
+  display: block; /* Ensure it's a block element */
+  background-color: #1a202c;
+  color: #2D3748; /* gray-800 */
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  white-space: pre-wrap; /* Preserve whitespace and wrap long lines if needed */
+}
+
+/* Style the code within the block */
+.prose code {
+  font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.875rem;
+  color: #2D3748; /* gray-800 */
+}
+
+/* Remove default quotes and ensure no extra styling */
+.prose pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  color: #2D3748; /* gray-800 */
+}
+
+/* Override Prism.js syntax highlighting colors to ensure consistency */
+.prose pre code .token.comment,
+.prose pre code .token.prolog,
+.prose pre code .token.doctype,
+.prose pre code .token.cdata {
+  color: #2D3748 !important; /* gray-800 for comments */
+}
+
+.prose pre code .token.punctuation {
+  color: #2D3748 !important;
+}
+
+.prose pre code .token.string,
+.prose pre code .token.attr-value {
+  color: #2D3748 !important;
+}
+
+.prose pre code .token.keyword,
+.prose pre code .token.function {
+  color: #2D3748 !important;
+}
+
+.prose pre code .token.operator,
+.prose pre code .token.entity,
+.prose pre code .token.url,
+.prose pre code .token.symbol,
+.prose pre code .token.number,
+.prose pre code .token.boolean,
+.prose pre code .token.variable,
+.prose pre code .token.constant,
+.prose pre code .token.property {
+  color: #2D3748 !important;
+}
+
+/* Prevent content from escaping the pre block */
+.prose pre code * {
+  display: inline; /* Ensure all content stays inline within the code block */
+  color: inherit; /* Inherit the gray-800 color */
+}
 

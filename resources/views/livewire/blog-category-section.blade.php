@@ -55,7 +55,7 @@
                                     <div class="flex items-center gap-2.5">
                                         <a href="{{ route('author') }}" class="flex items-center gap-3">
                                             <div class="flex w-6 h-6 rounded-full overflow-hidden">
-                                                <img src="front/images/user-01.png" alt="{{ $post->user->name }}" />
+                                                <img src="{{ $post->user->picture }}" alt="{{ $post->user->name }}" />
                                             </div>
                                             <p class="text-sm">{{ $post->user->name }}</p>
                                         </a>
@@ -76,7 +76,7 @@
                 <!-- Parent Category content start -->
                 @foreach ($pcategories as $pcategory)
                     <div x-show="selectedCategory === '{{ $pcategory->id }}'">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-11 gap-x-7.5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-11 gap-x-7.5">
                             @foreach ($postsByCategory[$pcategory->id]->take(8) as $post)
                                 <div class="group">
                                     <div class="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-102">
@@ -101,7 +101,7 @@
                                         <div class="flex items-center gap-2.5">
                                             <a href="{{ route('author') }}" class="flex items-center gap-3">
                                                 <div class="flex w-6 h-6 rounded-full overflow-hidden">
-                                                    <img src="front/images/user-01.png" alt="{{ $post->user->name }}" />
+                                                    <img src="{{ $post->user->picture }}" alt="{{ $post->user->name }}" />
                                                 </div>
                                                 <p class="text-sm">{{ $post->user->name }}</p>
                                             </a>

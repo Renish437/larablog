@@ -37,6 +37,23 @@ class PostResource extends Resource
                     ->searchable()
                     ->preload()
                     ->required()
+                    ->createOptionForm([
+                             Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+               
+                Forms\Components\Select::make('parent_category_id')
+                    
+                    ->relationship('parentCategory', 'name')
+                    ->searchable()
+
+                    ->preload()
+                    ->default(null),
+                Forms\Components\TextInput::make('ordering')
+                    ->required()
+                    ->numeric()
+                    ->default(1000),
+                    ])
                     ,
                 Forms\Components\RichEditor::make('content')
                     ->required()

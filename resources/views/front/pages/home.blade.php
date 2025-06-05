@@ -28,7 +28,7 @@
 
                         <div class="lg:max-w-[540px] w-full">
                             <a href="category.html"
-                                class="inline-flex text-purple-dark bg-purple/[0.08] font-medium text-sm py-1 px-3 rounded-full mb-4">Lifestyle</a>
+                                class="inline-flex text-purple-dark bg-purple/[0.08] font-medium text-sm py-1 px-3 rounded-full mb-4">{{ $hero_item_one->category->name }}</a>
                             <h1 class="font-bold text-custom-4 xl:text-heading-4 text-dark mb-4">
                                 <a href="{{ route('blog',$hero_item_one->slug) }}">
                                     {{ $hero_item_one->title }}
@@ -40,7 +40,7 @@
                             <div class="flex items-center gap-2.5 mt-5">
                                 <a href="author.html" class="flex items-center gap-3">
                                     <div class="flex w-6 h-6 rounded-full overflow-hidden">
-                                        <img src="images/user-01.png" alt="user">
+                                        <img src="{{ $hero_item_one->user->picture }}" alt="user">
                                     </div>
                                     <p class="text-sm">By {{ $hero_item_one->user->name }}</p>
                                 </a>
@@ -66,7 +66,7 @@
 
                                 <div class="lg:max-w-[272px] w-full">
                                     <a href="category.html"
-                                        class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full mb-4">Technology</a>
+                                        class="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full mb-4">{{ $hero_item->category->name }}</a>
                                     <h2 class="font-semibold text-custom-lg text-dark mb-3">
                                         <a href="{{ route('blog',$hero_item->slug) }}">
                                             {{ $hero_item->title }}
@@ -129,17 +129,18 @@
                 <div class="pt-14 border-t border-gray-3">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-11 gap-x-7.5">
                         <!-- Author Item -->
-                        <a href="{{ route('author') }}" class="group">
+                       @forelse ($authors as $author)
+                             <a href="{{ route('author') }}" class="group">
                             <div
                                 class="border border-gray-3 rounded-[20px] bg-gray p-5 group-hover:bg-white group-hover:drop-shadow-1 group-hover:-translate-y-2 transition-all">
                                 <div class="flex flex-wrap items-center gap-8">
                                     <div class="w-25 h-25 rounded-full overflow-hidden">
-                                        <img src="front/images/user-01.png" alt="user" />
+                                        <img src="{{ $author->picture }}" alt="user" />
                                     </div>
 
                                     <div>
                                         <h3 class="font-semibold text-custom-xl text-dark mb-1">
-                                            Adrio Devid
+                                            {{ $author->name }}
                                         </h3>
                                         <p>Director of Operations</p>
                                         <span class="flex items-center gap-2 text-custom-sm mt-2.5">
@@ -153,12 +154,15 @@
                                                     d="M14.7996 9.40015C14.5996 9.20015 14.3996 9.00015 14.1996 8.80015C14.0246 8.62515 13.8496 8.42515 13.6496 8.25015C13.5496 8.12515 13.3996 8.02515 13.2246 8.00015C13.0246 7.97515 12.8246 8.02515 12.6746 8.15015L8.32461 12.4751C8.19961 12.6001 8.12461 12.7251 8.07461 12.8751L7.44961 14.7751L7.34961 15.0751L7.52461 15.3001C7.59961 15.4001 7.74961 15.5501 8.02461 15.5501H8.12461L10.0996 14.9001C10.2496 14.8501 10.3996 14.7751 10.4996 14.6501L14.7996 10.3751C14.9246 10.2501 14.9996 10.0751 14.9996 9.87515C14.9996 9.70015 14.9246 9.52515 14.7996 9.40015ZM13.1246 9.30015C13.2246 9.40015 13.3246 9.50015 13.3996 9.60015C13.4996 9.70015 13.5996 9.80015 13.6996 9.90015L13.4246 10.1751L12.8496 9.60015L13.1246 9.30015ZM9.72461 13.8501L8.84961 14.1251L9.12461 13.2501L12.0246 10.3501L12.5996 10.9251L9.72461 13.8501Z"
                                                     fill="" />
                                             </svg>
-                                            03 Published posts
+                                            {{ $author->posts->count() }} Published posts
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </a>
+                       @empty
+                           <p>No authors found</p>
+                       @endforelse
 
                         <!-- Author Item -->
                         <a href="{{ route('author') }}" class="group">
@@ -223,6 +227,7 @@
                                 </div>
                             </div>
                         </a>
+
                     </div>
                 </div>
             </div>
